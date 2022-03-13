@@ -3,6 +3,10 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <ctype.h>
+#include <stdio.h>
+
+#include "Item.cpp"
 
 using namespace std;
 
@@ -12,17 +16,34 @@ int main() {
 
   // read item from config file
   ifstream itemConfigFile(itemConfigPath);
-  for (string line; getline(itemConfigFile, line);) {
-    cout << line << endl;
-    // do something
-  }
+  
+  string ID, name, type, toolType;
+  int i = 0;
+  
+  while(itemConfigFile >> ID >> name >> type >> toolType){
+    if(toolType == "NONTOOL") {
+      cout << "TRUE" << endl;
+      // construct item yang telah dibaca
+    
+    
+    }else if (toolType == "TOOL"){
+      cout << "FALSE" << endl;
+      // construct item yang telah dibaca
 
-  // read recipes
-  for (const auto &entry :
-       filesystem::directory_iterator(configPath + "/recipe")) {
-    cout << entry.path() << endl;
-    // read from file and do something
+    }
   }
+  itemConfigFile.close();
+
+  // for (string line; getline(itemConfigFile, line);) {
+   
+  // }
+
+  // // read recipes
+  // for (const auto &entry :
+  //      filesystem::directory_iterator(configPath + "/recipe")) {
+  //   cout << entry.path() << endl;
+  //   // read from file and do something
+  // }
 
   // sample interaction
   string command;
