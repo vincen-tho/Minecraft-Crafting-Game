@@ -1,4 +1,29 @@
 #include "Recipe.hpp"
+#include <cstddef>
+
+void Recipe::arr_con(Recipe *r, int *dimension, string **input, string output,
+                     int output_q) {
+  r->dimension = new int[2];
+  r->dimension[0] = dimension[0];
+  r->dimension[1] = dimension[1];
+  r->input = new string *[r->dimension[0]];
+  for (int i = 0; i < r->dimension[0]; i++) {
+    r->input[i] = new string[r->dimension[1]];
+    for (int j = 0; j < r->dimension[1]; j++) {
+      r->input[i][j] = input[i][j];
+    }
+  }
+  r->output = output;
+  r->output_q = output_q;
+}
+
+void Recipe::arr_del(Recipe *r) {
+  for (int i = 0; i < r->dimension[0]; i++) {
+    delete[] r->input[i];
+  }
+  delete[] r->input;
+  delete[] r->dimension;
+}
 
 Recipe::Recipe() {
   this->dimension = NULL;
@@ -8,72 +33,16 @@ Recipe::Recipe() {
 }
 
 Recipe::Recipe(int *dimension, string **input, string output, int output_q) {
-  this->dimension = new int[2];
-  this->dimension[0] = dimension[0];
-  this->dimension[1] = dimension[1];
-  this->input = new string *[this->dimension[0]];
-  for (int i = 0; i < this->dimension[0]; i++) {
-    this->input[i] = new string[this->dimension[1]];
-    for (int j = 0; j < this->dimension[1]; j++) {
-      this->input[i][j] = input[i][j];
-    }
-  }
-  this->output = output;
-  this->output_q = output_q;
+  arr_con(this, dimension, input, output, output_q);
 }
 
-Recipe::Recipe(const Recipe& r){
-  this->dimension = new int[2];
-  this->dimension[0] = r.dimension[0];
-  this->dimension[1] = r.dimension[1];
-  this->input = new string*[this->dimension[0]];
-  for (int i = 0; i < this->dimension[0]; i++) {
-    this->input[i] = new string[this->dimension[1]];
-    for (int j = 0; j < this->dimension[1]; j++) {
-        this->input[i][j] = r.input[i][j];
-    }
-  }
-  this->output = r.output;
-  this->output_q = r.output_q;
+Recipe::Recipe(const Recipe &r) {
+  arr_con(this, r.dimension, r.input, r.output, r.output_q);
 }
 
-Recipe::~Recipe() {
-  for (int i = 0; i < this->dimension[1]; i++) {
-    delete[] this->input[i];
-  }
-  delete[] this->input;
-  delete[] this->dimension;
-}
-/* Recipe::Recipe(const Recipe& r){ */
-/*   this->dimension = new int[2]; */
-/*   this->dimension[0] = r.dimension[0]; */
-/*   this->dimension[1] = r.dimension[1]; */
-/*   this->input = new string*[this->dimension[0]]; */
-/*   for (int i = 0; i < this->dimension[0]; i++) { */
-/*     this->input[i] = new string[this->dimension[1]]; */
-/*     for (int j = 0; j < this->dimension[1]; j++) { */
-/*         this->input[i][j] = r.input[i][j]; */
-/*     } */
-/*   } */
-/*   this->output = r.output; */
-/*   this->output_q = r.output_q; */
-/**/
-/* } */
+Recipe::~Recipe() { arr_del(this); }
 
 void Recipe::operator=(const Recipe &r) {
-  for (int i = 0; i < this->dimension[0]; i++) {
-      delete [] this->input[i];
-  }
-  delete [] this->input;
-  this->dimension[0] = r.dimension[0];
-  this->dimension[1] = r.dimension[1];
-  this->input = new string*[this->dimension[0]];
-  for (int i = 0; i < this->dimension[0]; i++) {
-    this->input[i] = new string[this->dimension[1]];
-    for (int j = 0; j < this->dimension[1]; j++) {
-        this->input[i][j] = r.input[i][j];
-    }
-  }
-  this->output = r.output;
-  this->output_q = r.output_q;
+  arr_del(this);
+  arr_con(this, r.dimension, r.input, r.output, r.output_q);
 }

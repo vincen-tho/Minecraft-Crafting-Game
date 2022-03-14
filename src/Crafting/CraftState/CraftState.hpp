@@ -10,7 +10,7 @@ using namespace std;
 class CraftState {
   // Kelas ini merupakan array 3 x 3 di Crafting
 private:
-  string **slot; // Array 3 x 3
+  Item **slot; // Array 3 x 3
   int *top_left;
   int *dimension;
 

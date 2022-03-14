@@ -3,12 +3,9 @@
 using namespace std;
 
 CraftState::CraftState() {
-  this->slot = new string *[3];
+  this->slot = new Item *[3];
   for (int i = 0; i < 3; i++) {
-    this->slot[i] = new string[3];
-    for (int j = 0; j < 3; j++) {
-      this->slot[i][j] = "-";
-    }
+    this->slot[i] = new Item[3];
   }
 
   this->dimension = new int[2];
@@ -28,7 +25,7 @@ void CraftState::addItem(Item i, int lokasi) {
   int row = lokasi / 3;
   int col = lokasi % 3;
 
-  this->slot[row][col] = i.get_name();
+  this->slot[row][col] = i;
 }
 
 void CraftState::returnItem(int lokasi) {

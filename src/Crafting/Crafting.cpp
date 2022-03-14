@@ -7,7 +7,7 @@ bool operator==(const CraftState &cs, const Recipe &r) {
   } else { // Dimensi-nya sama
     for (int i = 0; i < r.dimension[0]; i++) {
       for (int j = 0; j < r.dimension[1]; j++) {
-        if (cs.slot[cs.top_left[0] + i][cs.top_left[1] + j] != r.input[i][j]) {
+        if (cs.slot[cs.top_left[0] + i][cs.top_left[1] + j].get_name() != r.input[i][j]) {
           return false;
         }
       }
