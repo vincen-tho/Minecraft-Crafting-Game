@@ -8,9 +8,10 @@
 #include <vector>
 #include <sstream>
 
-#include "Item.cpp"
-#include "Crafting.cpp"
-#include "inventory.cpp"
+#include "lib.hpp"
+/* #include "Item.cpp" */
+/* #include "Crafting.cpp" */
+/* #include "inventory.cpp" */
 
 using namespace std;
 

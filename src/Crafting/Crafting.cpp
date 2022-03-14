@@ -89,7 +89,20 @@ Recipe::Recipe(int *dimension, string **input, string output, int output_q) {
   this->output_q = output_q;
 }
 
-Recipe::Recipe(const Recipe& r){}
+Recipe::Recipe(const Recipe& r){
+  this->dimension = new int[2];
+  this->dimension[0] = r.dimension[0];
+  this->dimension[1] = r.dimension[1];
+  this->input = new string*[this->dimension[0]];
+  for (int i = 0; i < this->dimension[0]; i++) {
+    this->input[i] = new string[this->dimension[1]];
+    for (int j = 0; j < this->dimension[1]; j++) {
+        this->input[i][j] = r.input[i][j];
+    }
+  }
+  this->output = r.output;
+  this->output_q = r.output_q;
+}
 
 Recipe::~Recipe() {
   for (int i = 0; i < this->dimension[1]; i++) {

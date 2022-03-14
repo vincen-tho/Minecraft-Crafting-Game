@@ -1,7 +1,7 @@
 #ifndef __CRAFTING_H__
 #define __CRAFTING_H__
 
-#include "Item.h"
+#include "../Item/Item.h"
 #include <string>
 #include <vector>
 
