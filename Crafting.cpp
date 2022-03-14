@@ -98,6 +98,21 @@ Recipe::~Recipe() {
   delete[] this->input;
   delete[] this->dimension;
 }
+/* Recipe::Recipe(const Recipe& r){ */
+/*   this->dimension = new int[2]; */
+/*   this->dimension[0] = r.dimension[0]; */
+/*   this->dimension[1] = r.dimension[1]; */
+/*   this->input = new string*[this->dimension[0]]; */
+/*   for (int i = 0; i < this->dimension[0]; i++) { */
+/*     this->input[i] = new string[this->dimension[1]]; */
+/*     for (int j = 0; j < this->dimension[1]; j++) { */
+/*         this->input[i][j] = r.input[i][j]; */
+/*     } */
+/*   } */
+/*   this->output = r.output; */
+/*   this->output_q = r.output_q; */
+/**/
+/* } */
 
 void Recipe::operator=(const Recipe &r) {
   for (int i = 0; i < this->dimension[0]; i++) {
@@ -128,4 +143,37 @@ void AllRecipe::addRecipe(int *dimension, string **input, string output,
 
 int AllRecipe::search_item(CraftState &cs) const{
     return find(this->recipes.begin(), this->recipes.end(), cs) - this->recipes.begin();
+}
+
+Crafting::Crafting(){
+    this->cs = new CraftState();
+    this->output = "-";
+}
+
+void Crafting::show() const {
+    this->cs->show();
+}
+
+void Crafting::add_item(Item i, int lokasi){
+    this->cs->addItem(i, lokasi);
+}
+
+void Crafting::addRecipe(int *dimension, string **input,
+        string output, int output_q){
+    this->ar.addRecipe(dimension, input, output, output_q);
+    this->output = this->ar.search_item(*this->cs);
+}
+
+/* Item Crafting::return_item(int lokasi){ */
+/*     // Belum */
+/* } */
+
+/* Item craft(){ */
+/**/
+/* } */
+
+void Crafting::refreshCraftState(){
+    delete this->cs;
+    this->cs = new CraftState();
+    this->output = "-";
 }
