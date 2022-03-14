@@ -32,6 +32,7 @@ int main() {
       // construct item yang telah dibaca
       nontool[i].set_name(name);
       nontool[i].set_quantity(10);
+      nontool[i].set_type("NONTOOL");
       if(variant != "-") {
         nontool[i].set_variant(variant);
       }
@@ -41,6 +42,7 @@ int main() {
       tool[j].set_name(name);
       tool[j].set_quantity(10);
       tool[j].set_durability(10);
+      tool[j].set_type("TOOL");
       j++;
     }
   }
