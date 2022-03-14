@@ -24,7 +24,10 @@ build: ./bin/$(EXEC_NAME)
 run: build
 	@./bin/$(EXEC_NAME)
 
-.PHONY:	test run
+clear:
+	@rm -rf build/* bin/*
+
+.PHONY:	test run build
 # TC_FOLDER = tests
 # EXT_IN = in
 # EXT_OUT = out
