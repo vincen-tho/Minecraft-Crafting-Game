@@ -89,6 +89,8 @@ Recipe::Recipe(int *dimension, string **input, string output, int output_q) {
   this->output_q = output_q;
 }
 
+Recipe::Recipe(const Recipe& r){}
+
 Recipe::~Recipe() {
   for (int i = 0; i < this->dimension[1]; i++) {
     delete[] this->input[i];

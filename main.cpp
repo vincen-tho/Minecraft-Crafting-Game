@@ -5,9 +5,11 @@
 #include <string>
 #include <ctype.h>
 #include <stdio.h>
+#include <vector>
+#include <sstream>
 
 #include "Item.cpp"
-#include "Crafting.hpp"
+#include "Crafting.cpp"
 #include "inventory.cpp"
 
 using namespace std;
@@ -18,11 +20,13 @@ int main() {
 
   // read item from config file
   ifstream itemConfigFile(itemConfigPath);
+  
   string ID, name, variant, toolType;
   int i = 0;
   int j = 0;
   Tool tool[12];
   NonTool nontool[12];
+  
   while(itemConfigFile >> ID >> name >> variant >> toolType){
     if(toolType == "NONTOOL") {
       // construct item yang telah dibaca
@@ -46,15 +50,45 @@ int main() {
    
   // }
 
+  // Inisialisasi crafting nya
+
+  Crafting c;
   // read recipes
   for (const auto &entry :
        filesystem::directory_iterator(configPath + "/recipe")) {
-    // cout << entry.path() << endl;
+
     // read from file and do something
     ifstream recipeConfigFile(entry.path());
-    for(string line; getline(recipeConfigFile, line);) {
-      cout << line << endl;
+
+    int dimension[2];
+    string crafted_item;
+    int crafted_item_q;
+    string line;
+    string **input;
+
+    // baca dimension
+    recipeConfigFile >> dimension[0] >> dimension[1];
+    // cout << dimension[0] << endl;
+    getline(recipeConfigFile, line);
+    
+    //baca susunan crafting
+    input = new string *[dimension[0]];
+    for(int i = 0; i < dimension[0]; i++){
+      input[i] = new string [dimension[1]];
+      getline(recipeConfigFile, line);
+      int j = 0;
+      istringstream ss(line);
+      while(ss >> input[i][j]){
+        j++;
+      }
     }
+    
+    // baca crafted_item_name dan crafted_item_quantity
+    recipeConfigFile >> crafted_item >> crafted_item_q;
+
+    // construct resep nya
+    c.addRecipe(dimension, input, crafted_item, crafted_item_q);
+    
   }
 
   // sample interaction
