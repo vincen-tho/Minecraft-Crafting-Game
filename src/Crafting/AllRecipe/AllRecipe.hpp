@@ -3,6 +3,7 @@
 
 #include "Recipe/Recipe.hpp"
 #include <vector>
+#include <string>
 using namespace std;
 
 class AllRecipe {
@@ -21,7 +22,9 @@ public:
   //
   // Input : Crafstate
   // Output: Lokasi resep di recipes, jika gak ada return -1
-  int search_item(CraftState &cs) const;
+  int search_item_idx(CraftState &cs) const;
+
+  string search_item(CraftState& cs) const;
 };
 
 #endif

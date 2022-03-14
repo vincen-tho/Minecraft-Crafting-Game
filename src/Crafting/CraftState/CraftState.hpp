@@ -2,6 +2,7 @@
 #define __CRAFTSTATE_HPP__
 
 #include <string>
+#include <array>
 #include "../../Item/Item.h"
 #include "../AllRecipe/AllRecipe.hpp"
 
@@ -11,8 +12,10 @@ class CraftState {
   // Kelas ini merupakan array 3 x 3 di Crafting
 private:
   Item **slot; // Array 3 x 3
-  int *top_left;
-  int *dimension;
+  array<int, 2> top_left;
+  array<int, 2> dimension;
+  /* int *top_left; */
+  /* int *dimension; */
 
 public:
   CraftState();

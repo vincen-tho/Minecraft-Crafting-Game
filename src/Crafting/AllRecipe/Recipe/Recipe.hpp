@@ -29,6 +29,7 @@ public:
 
   static void arr_con(Recipe* r, int* dimension, string** input, string output, int output_q);
   static void arr_del(Recipe* r);
+  string get_output() const;
   void operator=(const Recipe &r);
   // Dobel supaya komutatif
   friend bool operator==(const CraftState &cs, const Recipe &r);

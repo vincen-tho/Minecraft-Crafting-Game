@@ -46,3 +46,7 @@ void Recipe::operator=(const Recipe &r) {
   arr_del(this);
   arr_con(this, r.dimension, r.input, r.output, r.output_q);
 }
+
+string Recipe::get_output() const{
+    return this->output;
+}
