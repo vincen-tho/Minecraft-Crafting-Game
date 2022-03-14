@@ -7,6 +7,8 @@
 #include <stdio.h>
 
 #include "Item.cpp"
+#include "Crafting.hpp"
+#include "inventory.cpp"
 
 using namespace std;
 
@@ -16,7 +18,6 @@ int main() {
 
   // read item from config file
   ifstream itemConfigFile(itemConfigPath);
-  
   string ID, name, variant, toolType;
   int i = 0;
   int j = 0;
@@ -24,23 +25,18 @@ int main() {
   NonTool nontool[12];
   while(itemConfigFile >> ID >> name >> variant >> toolType){
     if(toolType == "NONTOOL") {
-      // cout << "TRUE" << endl;
       // construct item yang telah dibaca
       nontool[i].set_name(name);
       nontool[i].set_quantity(10);
       if(variant != "-") {
         nontool[i].set_variant(variant);
       }
-      nontool[i].displayInfo();
       i++;
-
     }else if (toolType == "TOOL"){
-      // cout << "FALSE" << endl;
       // construct item yang telah dibaca
       tool[j].set_name(name);
       tool[j].set_quantity(10);
       tool[j].set_durability(10);
-      tool[j].displayInfo();
       j++;
     }
   }
@@ -50,12 +46,16 @@ int main() {
    
   // }
 
-  // // read recipes
-  // for (const auto &entry :
-  //      filesystem::directory_iterator(configPath + "/recipe")) {
-  //   cout << entry.path() << endl;
-  //   // read from file and do something
-  // }
+  // read recipes
+  for (const auto &entry :
+       filesystem::directory_iterator(configPath + "/recipe")) {
+    // cout << entry.path() << endl;
+    // read from file and do something
+    ifstream recipeConfigFile(entry.path());
+    for(string line; getline(recipeConfigFile, line);) {
+      cout << line << endl;
+    }
+  }
 
   // sample interaction
   string command;
