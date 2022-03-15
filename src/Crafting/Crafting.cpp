@@ -72,13 +72,17 @@ void Crafting::addNonTool(string name, int quantity, string variety){
 
 }
 
-/* Item Crafting::return_item(int lokasi){ */
-/*     // Belum */
-/* } */
+Item Crafting::return_item(int lokasi){
+    Item it = this->cs->returnItem(lokasi);
+  this->output = this->ac.search_recipe(*this->cs);
+  return it;
+}
 
-/* Item craft(){ */
-/**/
-/* } */
+Item Crafting::craft(){
+    Item it = this->output;
+    this->refreshCraftState();
+    return it;
+}
 
 void Crafting::refreshCraftState() {
   delete this->cs;
