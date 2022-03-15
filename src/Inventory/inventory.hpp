@@ -3,18 +3,19 @@
 
 #include <utility>
 #include <string>
+#include "Item.h"
 
 using namespace std;
 
 class Inventory
 {
 private:
-    pair<string, int> inventory[27];
+    pair<Item, int> inventory[27];
 
 public:
     Inventory();
-    void add_item(string name, int quantity);
-    void remove_item(string name, int quantity);
+    void add_item(Item item, int quantity);
+    void remove_item(Item item, int quantity);
     void display_inventory();
 };
 
