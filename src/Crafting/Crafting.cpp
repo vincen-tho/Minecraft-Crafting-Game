@@ -1,5 +1,5 @@
 #include "Crafting.hpp"
-#include "AllRecipe/Recipe/Recipe.hpp"
+#include "AllConfig/Recipe/Recipe.hpp"
 #include "CraftState/CraftState.hpp"
 #include <array>
 #include <iostream>
@@ -17,10 +17,6 @@ bool arr_check(string **recipe, Item **arr_item, array<int, 2> item_dim,
       m_check =
           m_check && arr_item[item_tl[0] + i][item_tl[1] + j].get_name() ==
                          recipe[i][item_dim[1] - j - 1];
-      /* if (arr_item[item_tl[0] + i][item_tl[1] + j].get_name() !=
-       * recipe[i][j]) { */
-      /*   n_check = false; */
-      /* } */
     }
   }
   return n_check || m_check;
@@ -36,28 +32,12 @@ bool operator==(const CraftState &cs, const Recipe &r) {
         cs.dimension[0] == r.dimension[0] && cs.dimension[1] == r.dimension[1];
     if (same_dim) { // Dimensinya sama
       return arr_check(r.input, cs.slot, cs.dimension, cs.top_left);
-      /* for (int i = 0; i < r.dimension[0]; i++) { */
-      /*   for (int j = 0; j < r.dimension[1]; j++) { */
-      /*     if (cs.slot[cs.top_left[0] + i][cs.top_left[1] + j].get_name() !=
-       */
-      /*         r.input[i][j]) { */
-      /*       return false; */
-      /*     } */
-      /*   } */
-      /* } */
     } else {
       return false;
     }
     return false;
   } else { // Resep 3x3
     return arr_check(r.input, cs.slot, { 3, 3 }, { 0, 0 });
-    /* for (int i = 0; i < 3; i++) { */
-    /*   for (int j = 0; j < 3; j++) { */
-    /*     if (cs.slot[i][j].get_name() != r.input[i][j]) { */
-    /*       return false; */
-    /*     } */
-    /*   } */
-    /* } */
   }
   return true;
 }
@@ -66,23 +46,30 @@ bool operator==(const Recipe &r, const CraftState &cs) { return cs == r; }
 
 Crafting::Crafting() {
   this->cs = new CraftState();
-  this->output = "-";
+  this->output = Item();
 }
 
 void Crafting::show() const {
   this->cs->show();
-  cout << "CAN CRAFT: " << this->output << endl;
+  cout << "CAN CRAFT: " << output.get_name() << " x" << output.get_quantity() << endl;
 }
 
 void Crafting::add_item(Item i, int lokasi) {
   this->cs->addItem(i, lokasi);
-  this->output = this->ar.search_item(*this->cs);
+  this->output = this->ac.search_recipe(*this->cs);
 }
 
 void Crafting::addRecipe(int *dimension, string **input, string output,
                          int output_q) {
-  this->ar.addRecipe(dimension, input, output, output_q);
-  this->output = this->ar.search_item(*this->cs);
+  this->ac.addRecipe(dimension, input, output, output_q);
+}
+void Crafting::addTool(string name, int quantity, int durability){
+  this->ac.addTool(name, quantity, durability);
+}
+  
+void Crafting::addNonTool(string name, int quantity, string variety){
+  this->ac.addNonTool(name, quantity, variety);
+
 }
 
 /* Item Crafting::return_item(int lokasi){ */
@@ -96,5 +83,5 @@ void Crafting::addRecipe(int *dimension, string **input, string output,
 void Crafting::refreshCraftState() {
   delete this->cs;
   this->cs = new CraftState();
-  this->output = "-";
+  this->output = Item();
 }

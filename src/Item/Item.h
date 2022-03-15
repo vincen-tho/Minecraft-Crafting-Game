@@ -31,6 +31,7 @@ class Tool : public Item{
         void set_durability(int durability);
         int get_durability() const;
         void displayInfo() const;
+        void operator=(const Tool &t);
 };
 
 class NonTool : public Item{
@@ -42,5 +43,6 @@ class NonTool : public Item{
         void set_variant(std :: string variant);
         std :: string get_variant() const;
         void displayInfo() const;
+        void operator=(const NonTool &nt);
 };
 #endif

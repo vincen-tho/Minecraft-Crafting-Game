@@ -13,6 +13,7 @@ CraftState::CraftState() {
   }
 
   this->top_left= {INT32_MAX, INT32_MAX};
+  this->dimension = {0, 0};
   /* this->dimension = new int[2]; */
   /* this->top_left = new int[2]; */
   /* this->top_left[0] = INT32_MAX; */

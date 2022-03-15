@@ -88,3 +88,17 @@ void NonTool :: displayInfo() const{
     Item :: displayInfo();
     std :: cout << "Variant: " << this-> variant << std :: endl;
 }
+
+void NonTool::operator=(const NonTool& nt){
+    this->set_name(nt.get_name());
+    this->set_quantity(nt.get_quantity());
+    this->set_type(nt.get_type());
+    this->set_variant(nt.get_variant());
+}
+
+void Tool::operator=(const Tool& t){
+    this->set_name(t.get_name());
+    this->set_quantity(t.get_quantity());
+    this->set_type(t.get_type());
+    this->set_durability(t.get_durability());
+}

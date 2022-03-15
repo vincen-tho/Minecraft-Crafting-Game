@@ -4,7 +4,7 @@
 #include <string>
 #include <array>
 #include "../../Item/Item.h"
-#include "../AllRecipe/AllRecipe.hpp"
+#include "../AllConfig/AllConfig.hpp"
 
 using namespace std;
 

@@ -50,3 +50,7 @@ void Recipe::operator=(const Recipe &r) {
 string Recipe::get_output() const{
     return this->output;
 }
+
+int Recipe::get_output_q() const{
+    return this->output_q;
+}

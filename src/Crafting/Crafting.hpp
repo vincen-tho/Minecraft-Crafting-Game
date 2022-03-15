@@ -2,7 +2,7 @@
 #define __CRAFTING_H__
 
 #include "../Item/Item.h"
-#include "AllRecipe/AllRecipe.hpp"
+#include "AllConfig/AllConfig.hpp"
 #include "CraftState/CraftState.hpp"
 using namespace std;
 
@@ -10,8 +10,8 @@ class Crafting {
   // Main class untuk fitur Crafting
 private:
   CraftState *cs; // Array 3 x 3
-  AllRecipe ar;   // Kumpulan Resep
-  string output;  // Nama item yang akan dihasilkan
+  AllConfig ac;   // Kumpulan Resep
+  Item output;  // Nama item yang akan dihasilkan
 public:
   Crafting();
 
@@ -27,6 +27,9 @@ public:
   // dimension dan input akan di hard copy
   void addRecipe(int *dimension, string **input,
                  string output, int output_q);
+
+  void addTool(string name, int quantity, int durability);
+  void addNonTool(string name, int quantity, string variety);
 
   // Mengembalikan item di lokasi
   // row = lokasi `div` 3
