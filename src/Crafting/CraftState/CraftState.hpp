@@ -13,6 +13,7 @@ class CraftState {
 private:
   Item **slot; // Array 3 x 3
   array<int, 2> top_left;
+  array<int, 2> bot_rght;
   array<int, 2> dimension;
   /* int *top_left; */
   /* int *dimension; */
@@ -25,10 +26,12 @@ public:
   void addItem(Item i, int lokasi);
 
   // Kembalikan Item
-  void returnItem(int lokasi);
+  Item returnItem(int lokasi);
 
   // show
   void show();
+
+  array<int, 2> get_dimension() const;
 
   // Dobel supaya komutatif
   friend bool operator==(const CraftState &cs, const Recipe &r);
