@@ -1,20 +1,19 @@
 #include "Item.h"
 #include <iostream>
 
+int Item :: ID = 0;
 Item :: Item(){
-    this-> ID = count++;
+    this-> ID = ID+ 1;
     this-> name = "noname";
     this-> type = "notype";
     this-> quantity = 0;
-    this-> count++;
 }
 
 Item :: Item( string name, string type, int quantity){
-    this-> ID = count++;
+    this-> ID = ID+1;
     this-> name = name;
     this-> type = type;
     this-> quantity = quantity;
-    this-> count++;
 }
 
 void Item ::  set_name(string name){
@@ -48,12 +47,13 @@ void Item :: displayInfo() const{
     std :: cout << "Quantity: " << this-> quantity << std :: endl;
 }
 
+//default durability = 10
 Tool :: Tool(): Item(){
-    this-> durability = 0;
+    this-> durability = 10;
 }
 
-Tool :: Tool( std :: string name, int quantity, int durability) : Item( name, "tools",quantity){
-    this-> durability = durability;
+Tool :: Tool( std :: string name, int quantity) : Item( name, "TOOL",quantity){
+    this-> durability = 10;
 }
 
 void Tool :: set_durability(int durability){
@@ -72,7 +72,7 @@ NonTool :: NonTool() : Item (){
     this-> variant = "novariant";
 }
 
-NonTool :: NonTool(std :: string name, int quantity, std :: string variant) : Item(name,"nontools",quantity){
+NonTool :: NonTool(std :: string name, int quantity, std :: string variant) : Item(name,"NONTOOL",quantity){
     this-> variant = variant;
 }
 

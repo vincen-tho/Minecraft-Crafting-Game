@@ -5,7 +5,7 @@ using namespace std;
 
 class Item {
     private:
-        int ID;
+        static int ID;
         std :: string name;
         std :: string type;
         int quantity;
@@ -27,7 +27,7 @@ class Tool : public Item{
         int durability;
     public:
         Tool();
-        Tool( std :: string name, int quantity, int durability);
+        Tool( std :: string name, int quantity);
         void set_durability(int durability);
         int get_durability() const;
         void displayInfo() const;
