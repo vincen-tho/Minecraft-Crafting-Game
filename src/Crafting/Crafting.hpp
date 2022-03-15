@@ -28,7 +28,7 @@ public:
   void addRecipe(int *dimension, string **input,
                  string output, int output_q);
 
-  void addTool(string name, int quantity, int durability);
+  void addTool(string name, int quantity);
   void addNonTool(string name, int quantity, string variety);
 
   // Mengembalikan item di lokasi

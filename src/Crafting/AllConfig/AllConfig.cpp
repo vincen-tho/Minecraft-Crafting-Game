@@ -19,9 +19,9 @@ void AllConfig::addRecipe(int *dimension, string **input, string output,
   this->recipes.push_back(Recipe(dimension, input, output, output_q));
 }
 
-void AllConfig::addTool(string name, int quantity, int durability) {
+void AllConfig::addTool(string name, int quantity) {
   cout << "Adding Tool " << name << endl;
-  this->items.push_back(new Tool(name, quantity, durability));
+  this->items.push_back(new Tool(name, quantity));
 }
 
 void AllConfig::addNonTool(string name, int quantity, string variety) {

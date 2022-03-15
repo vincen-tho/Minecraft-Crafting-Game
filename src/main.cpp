@@ -46,8 +46,8 @@ int main()
         cout << "TODO" << endl;
       }
       else if (command == "SHOW"){
-        Craft.show();
-        Inv.display_inventory();
+        // Craft.show();
+        // Inv.display_inventory();
       }
       else if (command == "GIVE")
       {
@@ -65,7 +65,7 @@ int main()
         }
         else
         {
-          Inv.add_item(itemName, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
+          // Inv.add_item(itemName, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
         }
       }
       else if (command == "MOVE")
