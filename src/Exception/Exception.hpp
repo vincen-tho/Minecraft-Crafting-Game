@@ -10,6 +10,13 @@ public:
     virtual void printMessage() = 0;
 };
 
+class NoRecipe : public BaseException {
+public:
+    void printMessage() {
+        cout << "Tidak ada Recipe yang valid" << endl;
+    }
+};
+
 template<class T>
 class InvalidNumberException : public BaseException {
 private:
@@ -34,6 +41,56 @@ public:
         cout << "Item Name: " << itemName << " tidak valid" << endl;
     }
 };
+class DifferentItemStackException : public BaseException {
+private:
+    string ItemName1,ItemName2;
+public:
+    DifferentItemStackException(string ItemName1, string ItemName2) {
+        this->ItemName1 = ItemName1;
+        this->ItemName2 = ItemName2;
+    }
+    void printMessage() {
+        cout << "Tidak bisa stack item " << ItemName1 << " dan " << ItemName2 << endl;
+    }
+};
+
+
+
+class SlotIdException : public BaseException {
+protected:
+    int SLOT_ID;
+public:
+    SlotIdException(int SLOT_ID) {
+        this->SLOT_ID = SLOT_ID;
+    }
+    virtual void printMessage() = 0;
+};
+
+class NotToolException : public SlotIdException {
+public:
+    NotToolException(int SLOT_ID) : SlotIdException(SLOT_ID) {}
+    void printMessage() {
+        cout << "INVENTORY SLOT ID: " << SLOT_ID << " bukan tool" << endl;
+    }
+};
+
+class NoItemInventoryException : public SlotIdException {
+public:
+    NoItemInventoryException(int SLOT_ID) : SlotIdException(SLOT_ID) {}
+    void printMessage() {
+        cout << "INVENTORY SLOT ID: " << SLOT_ID << " tidak mengandung item" << endl;
+    }
+};
+
+class NoItemCraftingException : public SlotIdException {
+public:
+    NoItemCraftingException(int SLOT_ID) : SlotIdException(SLOT_ID) {}
+    void printMessage() {
+        cout << "CRAFTING SLOT ID: " << SLOT_ID << " tidak mengandung item" << endl;
+    }
+};
+
+
 // class TransactionFailedException : public BaseException {
 // private:
 //     BaseException* exc;

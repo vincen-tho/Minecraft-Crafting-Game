@@ -8,12 +8,12 @@ int main(){
     try{
         cin >> itemName >> itemQty;
         if(itemQty <= 0 ){
-            InvalidNumberException<int> *E = new InvalidNumberException<int>(itemQty);
-            throw(E); 
+            BaseException *E = new NotToolException(itemQty);
+            throw(E);
         }
         else if( /*TODO: Verify if ITEM_NAME IS VALID*/ true){
-            ItemNameException E(itemName);
-            throw(&E); 
+            BaseException *E = new NoItemInventoryException(itemQty);
+            throw(E);
         }
         else{
             cout << "bruh" <<endl;

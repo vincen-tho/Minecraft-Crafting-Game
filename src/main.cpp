@@ -24,8 +24,33 @@ int main()
   while (cin >> command)
   {
     try
-    {
-      if (command == "EXPORT")
+    { 
+      if (command == "CRAFT")
+      {
+        cout << "TODO" << endl;
+
+        //SOME EXCEPTIONS, change parameters as you desire
+
+        //Items dalam crafting tidak membuat recipe
+        //BaseException *E = new NoRecipe();
+        //throw(E);
+
+      }
+      else if (command == "DISCARD")
+      {
+        //SOME EXCEPTIONS, change parameters as you desire
+
+        //NO ITEM EXCEPTION
+        //BaseException *E = new NoItemInventoryException(INVENTORY_SLOT_ID);
+        //throw(E);
+
+        //Exception kalau itemQty <= 0 
+        //BaseException *E = new InvalidNumberException<int>(itemQty);
+        //throw(E);
+
+        //Should i make an exception if itemQty > Quantity yang ada?, ato kalo lebih interactionnya sama kalau ke delete total?
+      }
+      else if (command == "EXPORT")
       {
         string exportPath = "./export/";
         string outputPath;
@@ -50,14 +75,6 @@ int main()
 
         cout << "Exported" << endl;
       }
-      else if (command == "CRAFT")
-      {
-        cout << "TODO" << endl;
-      }
-      else if (command == "SHOW"){
-        // Craft.show();
-        // Inv.display_inventory();
-      }
       else if (command == "GIVE")
       {
         string itemName;
@@ -65,7 +82,7 @@ int main()
         cin >> itemName >> itemQty;
         if (itemQty <= 0)
         {
-          BaseException *E = new InvalidNumberException(itemQty);
+          BaseException *E = new InvalidNumberException<int>(itemQty);
           throw(E);
         }
         else if (/*TODO: Verify if ITEM_NAME IS VALID*/ true)
@@ -85,6 +102,41 @@ int main()
         // need to handle multiple destinations
         cin >> slotSrc >> slotQty >> slotDest;
         cout << "TODO" << endl;
+
+        //SOME EXCEPTIONS, change parameters as you desire
+
+        //NO ITEM EXCEPTION (use this kalo inventory/crafting slot yg mau dipindah empty)
+        //BaseException *E = new NoItemInventoryException(INVENTORY_SLOT_ID);
+        //throw(E);
+        //BaseException *E = new NoItemCraftingException(INVENTORY_SLOT_ID);
+        //throw(E);
+
+        //TRYING TO STACK DIFFERENT ITEMS EXCEPTION
+        //BaseException *E = new DifferentItemStackException(ItemName1,ItemName2);
+        //throw(E);
+
+        //TRYING TO STACK TOOL EXCEPTION
+        //BaseException *E = new ToolStackException();
+        //throw(E);
+
+
+      }
+      else if (command == "SHOW")
+      {
+        // Craft.show();
+        // Inv.display_inventory();
+      }
+      else if (command == "USE")
+      { 
+        //SOME EXCEPTIONS, change parameters as you desire
+
+        //NOT TOOL EXCEPTION
+        //BaseException *E = new NotToolException(INVENTORY_SLOT_ID);
+        //throw(E);
+
+        //NO ITEM EXCEPTION
+        //BaseException *E = new NoItemInventoryException(INVENTORY_SLOT_ID);
+        //throw(E);
       }
       else
       {
