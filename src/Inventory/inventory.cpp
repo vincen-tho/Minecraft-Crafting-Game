@@ -83,6 +83,43 @@ void Inventory::remove_item(Item item, int quantity){
     cout << "Item not found" << endl;
 }
 
+void Inventory::DISCARD(int inventoryID, int quantity){
+    if (inventory[inventoryID].second - quantity < 0)
+    {
+        cout << "Not enough quantity" << endl;
+        return;
+    }
+    else
+    {
+        inventory[inventoryID].second -= quantity;
+        return;
+    }
+}
+
+void Inventory:: MOVE(int srcID, int destID){
+    if (inventory[srcID].second == 0)
+    {
+        cout << "No item to move" << endl;
+        return;
+    }
+    else if (inventory[destID].second == 64)
+    {
+        cout << "Destination is full" << endl;
+        return;
+    }
+    else if (inventory[destID].second + inventory[srcID].second > 64)
+    {
+        int temp = 64 - inventory[destID].second;
+        inventory[destID].second = 64;
+        inventory[srcID].second -= temp;
+    }
+    else
+    {
+        inventory[destID].second += inventory[srcID].second;
+        inventory[srcID].second = 0;
+    }
+}
+
 pair<Item, int> Inventory::operator[](int i) const {
 
     return this->inventory[i];
