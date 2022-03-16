@@ -27,16 +27,17 @@ int main()
     {
       if (command == "EXPORT")
       {
+        string exportPath = "./export/";
         string outputPath;
         
         cout << "Input path file export : " ;
         cin >> outputPath;
         
-        ofstream outputFile(outputPath);
+        ofstream outputFile(exportPath + outputPath);
         
         for (int i = 0; i < 27; i++)
         {
-          outputFile << Inv[i].first.get_ID() << endl;
+          outputFile << Inv[i].first.get_ID() << ":" << Inv[i].second << endl;
         }
 
         cout << "Exported" << endl;
