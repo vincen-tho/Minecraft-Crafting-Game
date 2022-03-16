@@ -17,6 +17,7 @@ class Item {
         std :: string get_name() const;
         void set_type(std :: string type);
         std :: string get_type() const;
+        int get_ID() const;
         void set_quantity(int quantity);
         int get_quantity() const;
         virtual void displayInfo() const;

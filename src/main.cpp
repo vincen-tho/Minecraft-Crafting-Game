@@ -28,18 +28,15 @@ int main()
       if (command == "EXPORT")
       {
         string outputPath;
-        cout << "Masukkan nama file export : " ;
+        
+        cout << "Input path file export : " ;
         cin >> outputPath;
+        
         ofstream outputFile(outputPath);
-        for(int i = 0; i < 27; i++) {
-
-        }
-        // hardcode for first test case
-        outputFile << "21:10" << endl;
-        outputFile << "6:1" << endl;
-        for (int i = 2; i < 27; i++)
+        
+        for (int i = 0; i < 27; i++)
         {
-          outputFile << "0:0" << endl;
+          outputFile << Inv[i].first.get_ID() << endl;
         }
 
         cout << "Exported" << endl;

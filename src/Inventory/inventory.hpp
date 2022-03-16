@@ -17,6 +17,10 @@ public:
     void add_item(Item item, int quantity);
     void remove_item(Item item, int quantity);
     void display_inventory();
+
+    pair<Item, int> operator[](int i) const {};
+    pair<Item, int>& operator[](int i);
+
 };
 
 #endif

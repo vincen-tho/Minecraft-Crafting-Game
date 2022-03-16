@@ -47,6 +47,9 @@ void Item :: displayInfo() const{
     std :: cout << "Quantity: " << this-> quantity << std :: endl;
 }
 
+int Item::get_ID() const {
+    return this->ID;
+}
 //default durability = 10
 Tool :: Tool(): Item(){
     this-> durability = 10;

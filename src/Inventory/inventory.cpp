@@ -82,3 +82,16 @@ void Inventory::remove_item(Item item, int quantity){
     }
     cout << "Item not found" << endl;
 }
+
+pair<Item, int> Inventory::operator[](int i) const {
+
+    return this->inventory[i];
+
+}
+
+pair<Item, int>& Inventory::operator[](int i) {
+
+    return this->inventory[i];
+
+}
+
