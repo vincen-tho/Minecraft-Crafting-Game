@@ -37,7 +37,15 @@ int main()
         
         for (int i = 0; i < 27; i++)
         {
-          outputFile << Inv[i].first.get_ID() << ":" << Inv[i].second << endl;
+          if(Inv[i].first.get_type() == "NONTOOL") {
+
+            outputFile << Inv[i].first.get_ID() << ":" << Inv[i].second << endl;
+
+          } else if (Inv[i].first.get_type() == "TOOL") {
+            // masih belum tahu cara akses durability dari item nya
+            // outputFile << Inv[i].first.get_ID() << ":" << Inv[i].first.get_durability() << endl;
+          }
+          
         }
 
         cout << "Exported" << endl;
