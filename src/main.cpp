@@ -8,7 +8,7 @@
 #include <sstream>
 
 #include "lib.hpp"
-#include "Crafting/Load/load.cpp"
+#include "Load/load.hpp"
 #include "Exception/Exception.hpp"
 
 using namespace std;
@@ -28,9 +28,12 @@ int main()
       if (command == "EXPORT")
       {
         string outputPath;
+        cout << "Masukkan nama file export : " ;
         cin >> outputPath;
         ofstream outputFile(outputPath);
+        for(int i = 0; i < 27; i++) {
 
+        }
         // hardcode for first test case
         outputFile << "21:10" << endl;
         outputFile << "6:1" << endl;

@@ -18,7 +18,7 @@ void load_items(Crafting& c){
       c.addNonTool(name, 10, variant);
     }else if (toolType == "TOOL"){
       // construct item yang telah dibaca
-      c.addTool(name, 10, 10);
+      c.addTool(name, 10);
     }
   }
   itemConfigFile.close();
