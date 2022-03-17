@@ -6,7 +6,7 @@ BIN_DIR = bin
 MAIN_FILE = main.cpp
 EXEC_NAME = main
 
-COMP_CPP = $(shell find $(SRC_DIR) -name "*.cpp"  ! -name "main_*" ! -name "main.cpp")
+COMP_CPP = $(shell find $(SRC_DIR) -name "*.cpp"  ! -name "main_*" ! -name "main.cpp" ! -name "*_driver.cpp")
 COMP_OBJ = $(patsubst %.cpp, build/%.o, $(COMP_CPP))
 
 .PHONY:	test clear

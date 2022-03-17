@@ -13,6 +13,7 @@ private:
   AllConfig ac;   // Kumpulan Resep
   Item output;  // Nama item yang akan dihasilkan
 public:
+  // Konstruktor Biasa
   Crafting();
 
   // Mendisplay CraftState dan Output
@@ -28,7 +29,10 @@ public:
   void addRecipe(int *dimension, string **input,
                  string output, int output_q);
 
+  // Menambahkan Tool ke ar
   void addTool(string name, int quantity);
+  
+  // Menambahkan Non-Tool ke ar
   void addNonTool(string name, int quantity, string variety);
 
   // Mengembalikan item di lokasi

@@ -92,11 +92,11 @@ array<int, 2> CraftState::get_dimension() const {
 }
 
 void CraftState::show() {
-  cout << "Top Left : "
-       << "[ " << this->top_left[0] << " " << this->top_left[1] << " ]" << endl;
-  cout << "Dimension : "
-       << "[ " << this->dimension[0] << " " << this->dimension[1] << " ]"
-       << endl;
+  /* cout << "Top Left : " */
+  /*      << "[ " << this->top_left[0] << " " << this->top_left[1] << " ]" << endl; */
+  /* cout << "Dimension : " */
+  /*      << "[ " << this->dimension[0] << " " << this->dimension[1] << " ]" */
+  /*      << endl; */
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
       cout << "[ " << this->slot[i][j].get_name() << " ]"

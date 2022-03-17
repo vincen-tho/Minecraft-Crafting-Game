@@ -47,6 +47,7 @@ bool operator==(const Recipe &r, const CraftState &cs) { return cs == r; }
 Crafting::Crafting() {
   this->cs = new CraftState();
   this->output = Item();
+  this->output.set_name("-");
 }
 
 void Crafting::show() const {
@@ -88,4 +89,5 @@ void Crafting::refreshCraftState() {
   delete this->cs;
   this->cs = new CraftState();
   this->output = Item();
+  this->output.set_name("-");
 }
