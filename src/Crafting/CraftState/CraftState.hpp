@@ -1,10 +1,10 @@
 #ifndef __CRAFTSTATE_HPP__
 #define __CRAFTSTATE_HPP__
 
-#include <string>
-#include <array>
 #include "../../Item/Item.h"
 #include "../AllConfig/AllConfig.hpp"
+#include <array>
+#include <string>
 
 using namespace std;
 
@@ -23,15 +23,22 @@ public:
   ~CraftState();
 
   // Tambah Item
-  void addItem(Item* i, int lokasi);
+  void addItem(Item *i, int lokasi);
 
   // Kembalikan Item
-  Item* returnItem(int lokasi);
+  Item *returnItem(int lokasi);
 
   // show
   void show();
 
+  array<int, 2> loc_to_coor(int loc) const;
+  int coor_to_loc(array<int, 2> coor) const;
+  void update_dimension(int row, int col);
   array<int, 2> get_dimension() const;
+  array<int, 2> dur_add_check() const;
+  Item *add_tool(array<int, 2> coor) const;
+
+  Item *at(int lokasi) const;
 
   // Dobel supaya komutatif
   friend bool operator==(const CraftState &cs, const Recipe &r);

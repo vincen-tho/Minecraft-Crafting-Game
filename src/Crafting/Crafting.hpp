@@ -24,6 +24,7 @@ public:
   // col = lokasi `mod` 3
   void add_item(NonTool i, int lokasi);
   void add_item(Tool t, int lokasi);
+  void refreshOutput();
 
   // Menambahkan resep ke ar
   // dimension dan input akan di hard copy

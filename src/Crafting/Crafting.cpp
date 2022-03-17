@@ -37,7 +37,7 @@ bool operator==(const CraftState &cs, const Recipe &r) {
     }
     return false;
   } else { // Resep 3x3
-    return arr_check(r.input, cs.slot, { 3, 3 }, { 0, 0 });
+    return arr_check(r.input, cs.slot, {3, 3}, {0, 0});
   }
   return true;
 }
@@ -52,44 +52,58 @@ Crafting::Crafting() {
 
 void Crafting::show() const {
   this->cs->show();
-  cout << "CAN CRAFT: " << output->get_name() << " x" << output->get_quantity() << endl;
+  if (this->output->get_name() == "-") {
+    cout << "CAN CRAFT: " << output->get_name() << " x"
+         << output->get_quantity() << endl;
+  } else {
+    cout << "CAN CRAFT: " << endl;
+    this->output->displayInfo();
+  }
+}
+
+void Crafting::refreshOutput() {
+  array<int, 2> ToolLoc = this->cs->dur_add_check();
+  if (ToolLoc == array<int, 2>{-1, -1}) {
+    this->output = this->ac.search_recipe(*this->cs);
+  } else {
+    this->output = this->cs->add_tool(ToolLoc);
+  }
 }
 
 void Crafting::add_item(NonTool i, int lokasi) {
-    Item* nt = new NonTool(i);
+  Item *nt = new NonTool(i);
   this->cs->addItem(nt, lokasi);
-  this->output = this->ac.search_recipe(*this->cs);
+  this->refreshOutput();
 }
 
 void Crafting::add_item(Tool i, int lokasi) {
-    Item* t = new Tool(i);
+  Item *t = new Tool(i);
   this->cs->addItem(t, lokasi);
-  this->output = this->ac.search_recipe(*this->cs);
+  this->refreshOutput();
 }
 
 void Crafting::addRecipe(int *dimension, string **input, string output,
                          int output_q) {
   this->ac.addRecipe(dimension, input, output, output_q);
 }
-void Crafting::addTool(string name, int quantity){
+void Crafting::addTool(string name, int quantity) {
   this->ac.addTool(name, quantity);
 }
-  
-void Crafting::addNonTool(string name, int quantity, string variety){
-  this->ac.addNonTool(name, quantity, variety);
 
+void Crafting::addNonTool(string name, int quantity, string variety) {
+  this->ac.addNonTool(name, quantity, variety);
 }
 
-Item* Crafting::return_item(int lokasi){
-  Item* it = this->cs->returnItem(lokasi);
-  this->output = this->ac.search_recipe(*this->cs);
+Item *Crafting::return_item(int lokasi) {
+  Item *it = this->cs->returnItem(lokasi);
+  this->refreshOutput();
   return it;
 }
 
-Item* Crafting::craft(){
-    Item* it = this->output;
-    this->refreshCraftState();
-    return it;
+Item *Crafting::craft() {
+  Item *it = this->output;
+  this->refreshCraftState();
+  return it;
 }
 
 void Crafting::refreshCraftState() {
