@@ -7,24 +7,23 @@ int main() {
   Crafting Craft;
   load_recipes(Craft);
   load_items(Craft);
-  Item STK = Item("STICK", "Non-Tool", 1);
-  Item DIA = Item("DIAMOND", "Non-Tool", 1);
-  Item BLG = Item("BIRCH_LOG", "Non-Tool", 1);
-  Item SLG = Item("SPRUCE_LOG", "Non-Tool", 1);
+  NonTool* STK2 = new NonTool("STICK", 1, "-");
+  Tool T("A", 10);
 
   Craft.show();
-  Craft.add_item(DIA, 2);
   /* Craft.show(); */
-  Craft.add_item(DIA, 1);
   /* Craft.show(); */
-  Craft.add_item(DIA, 0);
   /* Craft.show(); */
-  Craft.add_item(STK, 4);
+  Craft.add_item(*STK2, 4);
   /* Craft.show(); */
-  Craft.add_item(STK, 7);
+  Craft.add_item(*STK2, 7);
+  Craft.add_item(T, 0);
   Craft.show();
-  Craft.return_item(0);
-  Craft.show();
+
+  STK2->displayInfo();
+  T.displayInfo();
+  Craft.return_item(0)->displayInfo();
+  /* Craft.show(); */
 
   /* Craft.refreshCraftState(); */
   /* Craft.add_item(DIA, 0); */

@@ -11,7 +11,7 @@ class Crafting {
 private:
   CraftState *cs; // Array 3 x 3
   AllConfig ac;   // Kumpulan Resep
-  Item output;  // Nama item yang akan dihasilkan
+  Item* output;  // Nama item yang akan dihasilkan
 public:
   // Konstruktor Biasa
   Crafting();
@@ -22,7 +22,8 @@ public:
   // Menambahkan item ke lokasi
   // row = lokasi `div` 3
   // col = lokasi `mod` 3
-  void add_item(Item i, int lokasi);
+  void add_item(NonTool i, int lokasi);
+  void add_item(Tool t, int lokasi);
 
   // Menambahkan resep ke ar
   // dimension dan input akan di hard copy
@@ -38,7 +39,7 @@ public:
   // Mengembalikan item di lokasi
   // row = lokasi `div` 3
   // col = lokasi `mod` 3
-  Item return_item(int lokasi);
+  Item* return_item(int lokasi);
 
   // Jika bisa ngecraft
   //    return Item
@@ -46,7 +47,7 @@ public:
   //    kosongin Output
   // Else
   //    Do Nothing
-  Item craft();
+  Item* craft();
 
   // Mengosongkan CraftState dan Output
   void refreshCraftState();

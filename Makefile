@@ -2,17 +2,18 @@ CC = g++
 
 SRC_DIR = src
 BIN_DIR = bin
+TSC_DIR = tests
 
 MAIN_FILE = main.cpp
 EXEC_NAME = main
+
+EXT_IN = in
+EXT_OUT = out
 
 COMP_CPP = $(shell find $(SRC_DIR) -name "*.cpp"  ! -name "main_*" ! -name "main.cpp" ! -name "*_driver.cpp")
 COMP_OBJ = $(patsubst %.cpp, build/%.o, $(COMP_CPP))
 
 .PHONY:	test clear
-
-test:
-	echo BELUM DIIMPLEMENTASIKAN
 
 ./build/src/%.o: ./src/%.cpp
 	mkdir -p $(dir $@)
@@ -37,6 +38,16 @@ clear:
 drive_test: ./bin/$(TDIR)/main
 	$<
 
+test: $(TSC_DIR)/*.$(EXT_IN) $(BIN_DIR)/$(EXEC_NAME)
+	for inputfile in $(TSC_DIR)/*.$(EXT_IN); do \
+		./$(BIN_DIR)/$(EXEC_NAME) < $$inputfile; \
+	done;
+
+check: FORCE check.cpp
+	g++ -std=c++17 -o check check.cpp
+	./check
+
+FORCE: ;
 # TC_FOLDER = tests
 # EXT_IN = in
 # EXT_OUT = out

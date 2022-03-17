@@ -5,7 +5,7 @@
 #include <iostream>
 using namespace std;
 
-bool arr_check(string **recipe, Item **arr_item, array<int, 2> item_dim,
+bool arr_check(string **recipe, Item ***arr_item, array<int, 2> item_dim,
                array<int, 2> item_tl) {
   bool n_check = true; // Normal
   bool m_check = true; // Mirror
@@ -13,9 +13,9 @@ bool arr_check(string **recipe, Item **arr_item, array<int, 2> item_dim,
     for (int j = 0; j < item_dim[1]; j++) {
       n_check =
           n_check &&
-          arr_item[item_tl[0] + i][item_tl[1] + j].get_name() == recipe[i][j];
+          arr_item[item_tl[0] + i][item_tl[1] + j]->get_name() == recipe[i][j];
       m_check =
-          m_check && arr_item[item_tl[0] + i][item_tl[1] + j].get_name() ==
+          m_check && arr_item[item_tl[0] + i][item_tl[1] + j]->get_name() ==
                          recipe[i][item_dim[1] - j - 1];
     }
   }
@@ -46,17 +46,24 @@ bool operator==(const Recipe &r, const CraftState &cs) { return cs == r; }
 
 Crafting::Crafting() {
   this->cs = new CraftState();
-  this->output = Item();
-  this->output.set_name("-");
+  this->output = new Item();
+  this->output->set_name("-");
 }
 
 void Crafting::show() const {
   this->cs->show();
-  cout << "CAN CRAFT: " << output.get_name() << " x" << output.get_quantity() << endl;
+  cout << "CAN CRAFT: " << output->get_name() << " x" << output->get_quantity() << endl;
 }
 
-void Crafting::add_item(Item i, int lokasi) {
-  this->cs->addItem(i, lokasi);
+void Crafting::add_item(NonTool i, int lokasi) {
+    Item* nt = new NonTool(i);
+  this->cs->addItem(nt, lokasi);
+  this->output = this->ac.search_recipe(*this->cs);
+}
+
+void Crafting::add_item(Tool i, int lokasi) {
+    Item* t = new Tool(i);
+  this->cs->addItem(t, lokasi);
   this->output = this->ac.search_recipe(*this->cs);
 }
 
@@ -73,14 +80,14 @@ void Crafting::addNonTool(string name, int quantity, string variety){
 
 }
 
-Item Crafting::return_item(int lokasi){
-    Item it = this->cs->returnItem(lokasi);
+Item* Crafting::return_item(int lokasi){
+  Item* it = this->cs->returnItem(lokasi);
   this->output = this->ac.search_recipe(*this->cs);
   return it;
 }
 
-Item Crafting::craft(){
-    Item it = this->output;
+Item* Crafting::craft(){
+    Item* it = this->output;
     this->refreshCraftState();
     return it;
 }
@@ -88,6 +95,6 @@ Item Crafting::craft(){
 void Crafting::refreshCraftState() {
   delete this->cs;
   this->cs = new CraftState();
-  this->output = Item();
-  this->output.set_name("-");
+  this->output = new Item();
+  this->output->set_name("-");
 }

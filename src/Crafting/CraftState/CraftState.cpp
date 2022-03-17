@@ -5,11 +5,12 @@
 using namespace std;
 
 CraftState::CraftState() {
-  this->slot = new Item *[3];
+  this->slot = new Item **[3];
   for (int i = 0; i < 3; i++) {
-    this->slot[i] = new Item[3];
+    this->slot[i] = new Item*[3];
     for (int j = 0; j < 3; j++) {
-      this->slot[i][j].set_name("-");
+      this->slot[i][j] = new Item();
+      this->slot[i][j]->set_name("-");
     }
   }
 
@@ -31,11 +32,13 @@ CraftState::~CraftState() {
   /* delete[] this->top_left; */
 }
 
-void CraftState::addItem(Item i, int lokasi) {
+void CraftState::addItem(Item* i, int lokasi) {
   int row = lokasi / 3;
   int col = lokasi % 3;
 
+  delete this->slot[row][col];
   this->slot[row][col] = i;
+
   if (row < this->top_left[0]) {
     this->top_left[0] = row;
   }
@@ -51,20 +54,20 @@ void CraftState::addItem(Item i, int lokasi) {
   this->dimension = this->get_dimension();
 }
 
-Item CraftState::returnItem(int lokasi) {
+Item* CraftState::returnItem(int lokasi) {
   int row = lokasi / 3;
   int col = lokasi % 3;
 
-  Item it = this->slot[row][col];
-  this->slot[row][col] = Item();
-  this->slot[row][col].set_name("-");
+  Item* it = this->slot[row][col];
+  this->slot[row][col] = new Item();
+  this->slot[row][col]->set_name("-");
   // Reset
   string name;
   this->top_left = {2, 2};
   this->bot_rght = {0, 0};
   for(int i = 0; i < 3; i++){
       for(int j = 0; j < 3; j++){
-          name = this->slot[i][j].get_name();
+          name = this->slot[i][j]->get_name();
           if(name != "-" && name != "noname"){
               if(this->top_left[0] > i){
                   this->top_left[0] = i;
@@ -99,7 +102,7 @@ void CraftState::show() {
   /*      << endl; */
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
-      cout << "[ " << this->slot[i][j].get_name() << " ]"
+      cout << "[ " << this->slot[i][j]->get_name() << " ]"
            << " ";
     }
     cout << endl;

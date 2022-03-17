@@ -11,7 +11,7 @@ using namespace std;
 class CraftState {
   // Kelas ini merupakan array 3 x 3 di Crafting
 private:
-  Item **slot; // Array 3 x 3
+  Item ***slot; // Array 3 x 3
   array<int, 2> top_left;
   array<int, 2> bot_rght;
   array<int, 2> dimension;
@@ -23,10 +23,10 @@ public:
   ~CraftState();
 
   // Tambah Item
-  void addItem(Item i, int lokasi);
+  void addItem(Item* i, int lokasi);
 
   // Kembalikan Item
-  Item returnItem(int lokasi);
+  Item* returnItem(int lokasi);
 
   // show
   void show();

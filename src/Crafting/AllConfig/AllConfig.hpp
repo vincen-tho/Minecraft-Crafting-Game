@@ -24,7 +24,7 @@ public:
   void addTool(string name, int quantity);
   void addNonTool(string name, int quantity, string variety);
   int search_item_idx(string name) const;
-  Item search_item(string name) const;
+  Item* search_item(string name) const;
 
   // Mencari item di recipes
   //
@@ -32,7 +32,7 @@ public:
   // Output: Lokasi resep di recipes, jika gak ada return -1
   int search_recipe_idx(CraftState &cs) const;
 
-  Item search_recipe(CraftState& cs) const;
+  Item* search_recipe(CraftState& cs) const;
 };
 
 #endif
