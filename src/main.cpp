@@ -8,8 +8,6 @@
 #include <sstream>
 
 #include "lib.hpp"
-#include "Load/load.hpp"
-#include "Exception/Exception.hpp"
 
 using namespace std;
 

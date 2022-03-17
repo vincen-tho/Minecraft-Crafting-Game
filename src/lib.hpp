@@ -4,5 +4,7 @@
 #include "Crafting/Crafting.hpp"
 #include "Inventory/inventory.hpp"
 #include "Item/Item.h"
+#include "Load/load.hpp"
+#include "Exception/Exception.hpp"
 
 #endif
