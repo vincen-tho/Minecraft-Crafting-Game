@@ -66,7 +66,8 @@ int main()
 
             outputFile << Inv[i].first.get_ID() << ":" << Inv[i].second << endl;
 
-          } else if (Inv[i].first.get_type() == "TOOL") {
+          }
+          else if (Inv[i].first.get_type() == "TOOL") {
             // masih belum tahu cara akses durability dari item nya
             // outputFile << Inv[i].first.get_ID() << ":" << Inv[i].first.get_durability() << endl;
           }
@@ -96,12 +97,28 @@ int main()
       }
       else if (command == "MOVE")
       {
-        string slotSrc;
+        string slotSrc, slotDest;
+        int idSlotSrc, idSlotDest;
+        char typeSlotSrc, typeSlotDst;
         int slotQty;
-        string slotDest;
         // need to handle multiple destinations
         cin >> slotSrc >> slotQty >> slotDest;
-        cout << "TODO" << endl;
+        // cout << "TODO" << endl;
+        istringstream sSrc(slotSrc);
+        istringstream sDst(slotDest);
+        
+        sSrc >> typeSlotSrc >> idSlotSrc;
+        sDst >> typeSlotDst >> idSlotDest;
+        
+
+        // MOVE dari crafting slot ke inventory
+        // MOVE dari crafting slot ke inventory quantity nya harus 1
+        if(typeSlotSrc == 'C' && typeSlotDst == 'I' && slotQty == 1){
+          
+          // kembaliin item yang ada di slot craft
+          Craft.return_item(idSlotSrc);
+
+        }
 
         //SOME EXCEPTIONS, change parameters as you desire
 
