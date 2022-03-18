@@ -12,54 +12,40 @@ Inventory::Inventory()
 }
 
 // add item with maximum quantity 64
-void Inventory::add_item(Item item, int quantity)
+// if item quantity is greater than 64 then add item to the next available slot
+void Inventory::add_item(int inventoryID, Item item, int quantity)
 {
-    for (int i = 0; i < 27; i++)
+    if ((inventory[inventoryID].first.get_name() != item.get_name()) && (inventory[inventoryID].first.get_name() != "noname"))
     {
-        if (inventory[i].first.get_name() == item.get_name())
+        cout << "Inventory slot is used" << endl;
+    }
+    else if (inventory[inventoryID].first.get_name() == item.get_name())
+    {
+        if (inventory[inventoryID].second + quantity > 64)
         {
-            if (inventory[i].second + quantity > 64)
+            int temp = inventory[inventoryID].second;
+            inventory[inventoryID].second = 64;
+
+            int availID = inventoryID + 1;
+            while (inventory[availID].first.get_name() != "noname")
             {
-                int temp = inventory[i].second;
-                inventory[i].second = 64;
-                add_item(item, temp + quantity - 64);
-                return;
+                availID++;
             }
-            else
-            {
-                inventory[i].second += quantity;
-                return;
-            }
-            return;
+            add_item(availID, item, temp + quantity - 64);
+        }
+        else
+        {
+            inventory[inventoryID].second += quantity;
         }
     }
-
-    // adding new item
-    for (int i = 0; i < 27; i++)
+    else
     {
-        if (inventory[i].first.get_name() == "noname")
-        {
-            if (quantity > 64)
-            {
-                inventory[i].first = item;
-                inventory[i].second = 64;
-                add_item(item, quantity - 64);
-                return;
-            }
-            else
-            {
-                inventory[i].first = item;
-                inventory[i].second = quantity;
-                return;
-            }
-        }
+        inventory[inventoryID] = make_pair(item, quantity);
     }
-
-    // if inventory is full
-    cout << "Inventory is full" << endl;
 }
 
-void Inventory::remove_item(Item item, int quantity){
+void Inventory::remove_item(Item item, int quantity)
+{
     for (int i = 0; i < 27; i++)
     {
         if (inventory[i].first.get_name() == item.get_name())
@@ -69,7 +55,8 @@ void Inventory::remove_item(Item item, int quantity){
                 inventory[i] = make_pair(Item(), 0);
                 return;
             }
-            else if(inventory[i].second - quantity < 0){
+            else if (inventory[i].second - quantity < 0)
+            {
                 cout << "Not enough quantity" << endl;
                 return;
             }
@@ -83,7 +70,8 @@ void Inventory::remove_item(Item item, int quantity){
     cout << "Item not found" << endl;
 }
 
-void Inventory::DISCARD(int inventoryID, int quantity){
+void Inventory::DISCARD(int inventoryID, int quantity)
+{
     if (inventory[inventoryID].second - quantity < 0)
     {
         cout << "Not enough quantity" << endl;
@@ -96,7 +84,8 @@ void Inventory::DISCARD(int inventoryID, int quantity){
     }
 }
 
-void Inventory:: MOVE(int srcID, int destID){
+void Inventory::MOVE(int srcID, int destID)
+{
     if (inventory[srcID].second == 0)
     {
         cout << "No item to move" << endl;
@@ -120,15 +109,14 @@ void Inventory:: MOVE(int srcID, int destID){
     }
 }
 
-pair<Item, int> Inventory::operator[](int i) const {
+pair<Item, int> Inventory::operator[](int i) const
+{
 
     return this->inventory[i];
-
 }
 
-pair<Item, int>& Inventory::operator[](int i) {
+pair<Item, int> &Inventory::operator[](int i)
+{
 
     return this->inventory[i];
-
 }
-

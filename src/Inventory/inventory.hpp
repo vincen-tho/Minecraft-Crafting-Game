@@ -14,7 +14,7 @@ private:
 
 public:
     Inventory();
-    void add_item(Item item, int quantity);
+    void add_item(int inventoryID, Item item, int quantity);
     void remove_item(Item item, int quantity);
 
     void DISCARD(int inventoryID, int quantity);
