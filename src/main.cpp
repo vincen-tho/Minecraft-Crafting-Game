@@ -118,12 +118,12 @@ int main()
         if(typeSlotSrc == 'C' && typeSlotDst == 'I' && slotQty == 1){
           
           if(idSlotDest > 26){
-            BaseException *E = new InvalidNumberException(idSlotDest);
+            BaseException *E = new InvalidNumberException<int>(idSlotDest);
             throw(E);
           }
         
           if(idSlotSrc > 8){
-            BaseException *E = new InvalidNumberException(idSlotSrc);
+            BaseException *E = new InvalidNumberException<int>(idSlotSrc);
             throw (E);
           }
 

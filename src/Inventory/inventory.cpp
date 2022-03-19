@@ -120,3 +120,20 @@ pair<Item, int> &Inventory::operator[](int i)
 
     return this->inventory[i];
 }
+
+void Inventory::display_inventory(){
+    for (int i = 0; i < 27; i++)
+    {
+        inventory[i] = make_pair(Item(), 0);
+        cout << "[I" << i << ": ";
+        if(inventory[i].first.get_name() == "noname"){
+            cout << "-] ";
+        }
+        else{
+            cout << inventory[i].first.get_name() <<"(" << inventory[i].second << ")] ";
+        } 
+        if(i%9 == 8){
+            cout<<endl;
+        }
+    }
+}
