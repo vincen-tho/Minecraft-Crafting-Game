@@ -21,6 +21,10 @@ class Item {
         void set_quantity(int quantity);
         int get_quantity() const;
         virtual void displayInfo() const;
+        virtual int get_durability() const;
+        virtual void set_durability(int durability);
+        virtual std :: string get_variant() const;
+        virtual void set_variant(std :: string variant);
 };
 
 class Tool : public Item{

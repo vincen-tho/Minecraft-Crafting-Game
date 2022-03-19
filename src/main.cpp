@@ -143,15 +143,29 @@ int main()
       }
       else if (command == "USE")
       { 
+        string slotInv;
+        int invID;
+        char type;
+
+        cin >> slotInv;
+        istringstream sInv(slotInv);
+        sInv >> type >> invID;
         //SOME EXCEPTIONS, change parameters as you desire
 
-        //NOT TOOL EXCEPTION
-        //BaseException *E = new NotToolException(INVENTORY_SLOT_ID);
-        //throw(E);
-
-        //NO ITEM EXCEPTION
-        //BaseException *E = new NoItemInventoryException(INVENTORY_SLOT_ID);
-        //throw(E);
+        if (Inv[invID].first.get_name() == "noname"){
+          //NO ITEM EXCEPTION
+          BaseException *E = new NoItemInventoryException(invID);
+          throw(E);
+        }
+        else{
+          if(Inv[invID].first.get_type() == "TOOL"){
+            Inv[invID].first.set_durability(Inv[invID].first.get_durability()-1);
+          }else{
+            //NOT TOOL EXCEPTION
+            BaseException *E = new NotToolException(invID);
+            throw(E);
+          }
+        }
       }
       else
       {
