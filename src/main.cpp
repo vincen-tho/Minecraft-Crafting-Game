@@ -62,12 +62,16 @@ int main()
         {
           if(Inv[i].first.get_type() == "NONTOOL") {
 
-            outputFile << Inv[i].first.get_ID() << ":" << Inv[i].second << endl;
+            outputFile << Inv[i].first.get_ID() << ":" << Inv[i].second;
 
           }
           else if (Inv[i].first.get_type() == "TOOL") {
             // masih belum tahu cara akses durability dari item nya
-            // outputFile << Inv[i].first.get_ID() << ":" << Inv[i].first.get_durability() << endl;
+            outputFile << Inv[i].first.get_ID() << ":" << Inv[i].first.get_durability();
+          }
+
+          if (i < 26){
+            cout << endl;
           }
           
         }
