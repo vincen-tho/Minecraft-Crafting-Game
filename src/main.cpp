@@ -113,11 +113,24 @@ int main()
         // MOVE dari crafting slot ke inventory quantity nya harus 1
         if(typeSlotSrc == 'C' && typeSlotDst == 'I' && slotQty == 1){
           
-          // kembaliin item yang ada di slot craft
-          Craft.return_item(idSlotSrc);
+          if(idSlotDest > 26){
+            BaseException *E = new InvalidNumberException(idSlotDest);
+            throw(E);
+          }
+        
+          if(idSlotSrc > 8){
+            BaseException *E = new InvalidNumberException(idSlotSrc);
+            throw (E);
+          }
+
+          Item* temp = Craft.return_item(idSlotSrc);
+          Inv.add_item(idSlotDest, *temp, slotQty);
+
+        } else if (typeSlotSrc == 'I' && typeSlotDst == 'I' && slotQty == 1){
+
+          // ISI BUAT YANG NUMPUK ITEM DI INVENTORY
 
         }
-
         //SOME EXCEPTIONS, change parameters as you desire
 
         //NO ITEM EXCEPTION (use this kalo inventory/crafting slot yg mau dipindah empty)
@@ -133,8 +146,6 @@ int main()
         //TRYING TO STACK TOOL EXCEPTION
         //BaseException *E = new ToolStackException();
         //throw(E);
-
-
       }
       else if (command == "SHOW")
       {

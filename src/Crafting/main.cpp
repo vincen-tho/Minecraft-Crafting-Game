@@ -62,7 +62,7 @@ int main() {
 
         Item* temp = Craft.return_item(idSlotSrc);
         // method Inv.add_item nya perlu dimodifikasi jadi berdasarkan item, quantity, dan lokasi
-        Inv.add_item(*temp, slotQty);
+        Inv.add_item(idSlotDest, *temp, slotQty);
 
       }catch(BaseException *E){
         E->printMessage();
