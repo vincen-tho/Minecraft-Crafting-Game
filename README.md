@@ -2,6 +2,38 @@
 
 Template repository for Tubes 1 IF2210 2021/2022. Feel free to replace this README with your own content.
 
+## Makefile Commands
+
+### Nge-run
+
+Nge-run `src/main.cpp`
+
+```
+make run
+```
+
+Nge-run `src/$(FOLDER)/main.cpp`
+
+```
+make drive_test TDIR=$(FOLDER)
+```
+
+Nge-run test
+
+```
+make test
+```
+
+Hasil akan ada di folder `tests/`
+
+Nge-run check
+
+```
+make check
+```
+
+Hasil export dari test, akan di-check.
+
 ## What's Inside
 This template consists of:
 - config folder containing all the config files (items and recipes)

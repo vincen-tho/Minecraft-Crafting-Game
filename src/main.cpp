@@ -58,7 +58,7 @@ int main()
       }
       else if (command == "EXPORT")
       {
-        string exportPath = "./export/";
+        string exportPath = "./";
         string outputPath;
         
         cout << "Input path file export : " ;
@@ -114,7 +114,7 @@ int main()
         char typeSlotSrc, typeSlotDst;
         int slotQty;
         // need to handle multiple destinations
-        cin >> slotSrc >> slotQty >> slotDest;
+        cin >> slotSrc >> slotQty;
         // cout << "TODO" << endl;
         istringstream sSrc(slotSrc);
         
@@ -186,8 +186,8 @@ int main()
       }
       else if (command == "SHOW")
       {
-        // Craft.show();
-        // Inv.display_inventory();
+         Craft.show();
+         Inv.display_inventory();
       }
       else if (command == "USE")
       { 
@@ -218,7 +218,7 @@ int main()
       else
       {
         // todo
-        cout << "Invalid command" << endl;
+        cout << "Invalid command: " << command << endl;
       }
     }
     catch (BaseException *ex)
