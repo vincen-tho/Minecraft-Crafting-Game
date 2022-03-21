@@ -77,6 +77,7 @@ int main() {
   // make drive_test TDIR=Crafting
   Craft.show();
   showInventory(Inv);
+  // Move 
   Inv.add_item(1, T1, 10);
   Item* temp = Inv[1].first;
   Craft.add_item(temp,2);

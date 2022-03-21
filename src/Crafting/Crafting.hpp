@@ -55,6 +55,8 @@ public:
 
   // Mengosongkan CraftState dan Output
   void refreshCraftState();
+
+  Item* search_item(string str) const;
 };
 
 #endif

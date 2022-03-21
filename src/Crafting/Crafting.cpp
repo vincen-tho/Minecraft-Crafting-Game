@@ -125,3 +125,6 @@ void Crafting::refreshCraftState() {
   this->output = new Item();
   this->output->set_name("-");
 }
+Item* Crafting::search_item(string str) const {
+    return this->ac.search_item(str);
+}
