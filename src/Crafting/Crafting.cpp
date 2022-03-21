@@ -111,10 +111,12 @@ Item *Crafting::return_item(int lokasi) {
 
 Item *Crafting::craft() {
   Item *it = this->output;
-  /* this->show(); */
-  /* cout << "Craft ? (y/n): "; */
   this->refreshCraftState();
   return it;
+}
+
+bool Crafting::canCraft() const{
+    return this->output->get_name() != "-";
 }
 
 void Crafting::refreshCraftState() {

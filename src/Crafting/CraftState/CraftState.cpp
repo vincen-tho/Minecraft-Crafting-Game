@@ -129,8 +129,7 @@ Item *CraftState::add_tool(array<int, 2> coor) const {
     Tool *T = new Tool(T0->get_name(), 1);
     T->set_durability(newDur);
 
-    delete I;
-    I = T;
+    return T;
   }
   return I;
 }

@@ -50,6 +50,8 @@ public:
   // Else
   //    Do Nothing
   Item* craft();
+  
+  bool canCraft() const;
 
   // Mengosongkan CraftState dan Output
   void refreshCraftState();

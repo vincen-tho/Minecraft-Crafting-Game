@@ -7,6 +7,7 @@
 #include <vector>
 #include <sstream>
 
+#include "Exception/Exception.hpp"
 #include "lib.hpp"
 
 using namespace std;
@@ -26,6 +27,13 @@ int main()
       if (command == "CRAFT")
       {
         cout << "TODO" << endl;
+        /* if(Craft.canCraft()){ */
+        /*     // Gak tau mau return ke mana */
+        /*     // Craft.craft(); */
+        /* } else { */
+        /*     BaseException* E = new NoRecipe(); */
+        /*     throw(E); */
+        /* } */
 
         //SOME EXCEPTIONS, change parameters as you desire
 
