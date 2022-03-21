@@ -117,32 +117,55 @@ int main()
         cin >> slotSrc >> slotQty >> slotDest;
         // cout << "TODO" << endl;
         istringstream sSrc(slotSrc);
-        istringstream sDst(slotDest);
+        
         
         sSrc >> typeSlotSrc >> idSlotSrc;
-        sDst >> typeSlotDst >> idSlotDest;
         
-
         // MOVE dari crafting slot ke inventory
         // MOVE dari crafting slot ke inventory quantity nya harus 1
-        if(typeSlotSrc == 'C' && typeSlotDst == 'I' && slotQty == 1){
+        if(typeSlotSrc == 'C'){
+          cin>>slotDest;
+          istringstream sDst(slotDest);
+          sDst >> typeSlotDst >> idSlotDest;
+          if( typeSlotDst == 'I' && slotQty == 1){
+            if(idSlotDest > 26){
+              BaseException *E = new InvalidNumberException<int>(idSlotDest);
+              throw(E);
+            }
           
-          if(idSlotDest > 26){
-            BaseException *E = new InvalidNumberException<int>(idSlotDest);
-            throw(E);
+            if(idSlotSrc > 8){
+              BaseException *E = new InvalidNumberException<int>(idSlotSrc);
+              throw (E);
+            }
+
+            Item* temp = Craft.return_item(idSlotSrc);
+            Inv.add_item(idSlotDest, temp, slotQty);
           }
-        
-          if(idSlotSrc > 8){
-            BaseException *E = new InvalidNumberException<int>(idSlotSrc);
-            throw (E);
+        } 
+        else if (typeSlotSrc == 'I'){
+          if(idSlotSrc > 26){
+                BaseException *E = new InvalidNumberException<int>(idSlotSrc);
+                throw (E);
+              }
+          for (int i=0; i<slotQty; i++){
+            cin>>slotDest;
+            istringstream sDst(slotDest);
+            sDst >> typeSlotDst >> idSlotDest;
+            if(slotQty > Inv[idSlotSrc].first->get_quantity()){
+              //exception item tidak cukup
+            }
+            if(typeSlotDst == 'C'){
+              if(idSlotDest > 8){
+                BaseException *E = new InvalidNumberException<int>(idSlotDest);
+                throw(E);
+              }
+              Item* temp = Inv[idSlotSrc].first;
+              Craft.add_item(temp,idSlotDest);
+              Inv.remove_item(temp,1);
+            }
           }
-
-          Item* temp = Craft.return_item(idSlotSrc);
-          Inv.add_item(idSlotDest, temp, slotQty);
-
-        } else if (typeSlotSrc == 'I' && typeSlotDst == 'I' && slotQty == 1){
-
-          // ISI BUAT YANG NUMPUK ITEM DI INVENTORY
+          
+            
 
         }
         //SOME EXCEPTIONS, change parameters as you desire
