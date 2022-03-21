@@ -50,6 +50,20 @@ void Item :: displayInfo() const{
 int Item::get_ID() const {
     return this->ID;
 }
+
+int Item::get_durability() const{
+    return 0;
+}
+void Item::set_durability(int durability){
+
+}
+std :: string Item::get_variant() const{
+    return NULL;
+}
+void Item::set_variant(std :: string variant){
+
+}
+
 //default durability = 10
 Tool :: Tool(): Item(){
     this-> durability = 10;

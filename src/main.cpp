@@ -68,18 +68,20 @@ int main()
         
         for (int i = 0; i < 27; i++)
         {
-          if(Inv[i].first.get_type() == "NONTOOL") {
+          if(Inv[i].first->get_type() == "NONTOOL") {
 
-            outputFile << Inv[i].first.get_ID() << ":" << Inv[i].second;
+            outputFile << Inv[i].first->get_ID() << ":" << Inv[i].second;
 
           }
-          else if (Inv[i].first.get_type() == "TOOL") {
+          else if (Inv[i].first->get_type() == "TOOL") {
             // masih belum tahu cara akses durability dari item nya
-            outputFile << Inv[i].first.get_ID() << ":" << Inv[i].first.get_durability();
+            outputFile << Inv[i].first->get_ID() << ":" << Inv[i].first->get_durability();
+          }else if(Inv[i].first->get_type() == "notype"){
+            outputFile << 0 << ":" << 0;
           }
 
           if (i < 26){
-            cout << endl;
+            outputFile << endl;
           }
           
         }
@@ -136,7 +138,7 @@ int main()
           }
 
           Item* temp = Craft.return_item(idSlotSrc);
-          Inv.add_item(idSlotDest, *temp, slotQty);
+          Inv.add_item(idSlotDest, temp, slotQty);
 
         } else if (typeSlotSrc == 'I' && typeSlotDst == 'I' && slotQty == 1){
 
@@ -175,14 +177,14 @@ int main()
         sInv >> type >> invID;
         //SOME EXCEPTIONS, change parameters as you desire
 
-        if (Inv[invID].first.get_name() == "noname"){
+        if (Inv[invID].first->get_name() == "noname"){
           //NO ITEM EXCEPTION
           BaseException *E = new NoItemInventoryException(invID);
           throw(E);
         }
         else{
-          if(Inv[invID].first.get_type() == "TOOL"){
-            Inv[invID].first.set_durability(Inv[invID].first.get_durability()-1);
+          if(Inv[invID].first->get_type() == "TOOL"){
+            Inv[invID].first->set_durability(Inv[invID].first->get_durability()-1);
           }else{
             //NOT TOOL EXCEPTION
             BaseException *E = new NotToolException(invID);
