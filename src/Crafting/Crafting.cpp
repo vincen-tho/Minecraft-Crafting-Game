@@ -48,6 +48,7 @@ Crafting::Crafting() {
   this->cs = new CraftState();
   this->output = new Item();
   this->output->set_name("-");
+  this->items_used = 0;
 }
 
 void Crafting::show() const {
@@ -64,9 +65,13 @@ void Crafting::show() const {
 void Crafting::refreshOutput() {
   array<int, 2> ToolLoc = this->cs->dur_add_check();
   if (ToolLoc == array<int, 2>{-1, -1}) {
-    this->output = this->ac.search_recipe(*this->cs);
+    Item* tmp = this->ac.search_recipe(*this->cs);
+    this->items_used = this->cs->get_min_used();
+    tmp->set_quantity(tmp->get_quantity() * this->items_used);
+    this->output = tmp;
   } else {
     this->output = this->cs->add_tool(ToolLoc);
+    this->items_used = 1;
   }
 }
 
@@ -120,8 +125,7 @@ bool Crafting::canCraft() const{
 }
 
 void Crafting::refreshCraftState() {
-  delete this->cs;
-  this->cs = new CraftState();
+    this->cs->clean(this->items_used);
   this->output = new Item();
   this->output->set_name("-");
 }

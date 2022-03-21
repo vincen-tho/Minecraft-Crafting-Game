@@ -12,6 +12,7 @@ private:
   CraftState *cs; // Array 3 x 3
   AllConfig ac;   // Kumpulan Resep
   Item* output;  // Nama item yang akan dihasilkan
+  int items_used;
 public:
   // Konstruktor Biasa
   Crafting();

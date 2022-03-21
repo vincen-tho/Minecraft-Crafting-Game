@@ -37,8 +37,10 @@ public:
   array<int, 2> get_dimension() const;
   array<int, 2> dur_add_check() const;
   Item *add_tool(array<int, 2> coor) const;
+  int get_min_used() const;
 
   Item *at(int lokasi) const;
+  void clean(int items_used);
 
   // Dobel supaya komutatif
   friend bool operator==(const CraftState &cs, const Recipe &r);

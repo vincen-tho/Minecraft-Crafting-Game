@@ -2,7 +2,10 @@
 #include <array>
 #include <cmath>
 #include <cstdint>
+#include <iomanip>
+#include <ios>
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 CraftState::CraftState() {
@@ -146,11 +149,57 @@ void CraftState::show() {
   /* cout << "Dimension : " */
   /*      << "[ " << this->dimension[0] << " " << this->dimension[1] << " ]" */
   /*      << endl; */
+  array<int, 3> bufn = {0, 0, 0};
+  array<int, 3> bufq = {0, 0, 0};
+  Item *tmp;
+  int q = 0;
+  int n = 0;
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
-      cout << "[ " << this->slot[i][j]->get_name() << " ]"
-           << " ";
+      tmp = this->slot[i][j];
+      q = tmp->get_name().length();
+      n = floor(log10(tmp->get_quantity())) + 1;
+      if (q > bufn[j]) {
+        bufn[j] = q;
+      }
+      if (n > bufq[j]) {
+        bufq[j] = n;
+      }
+    }
+  }
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      tmp = this->slot[i][j];
+      q = tmp->get_quantity();
+      cout << "[ " << setw(bufn[j]) << left << tmp->get_name() << " x"
+           << setw(bufq[j]) << q << " ]" << fixed;
     }
     cout << endl;
+  }
+}
+int CraftState::get_min_used() const {
+  int min = INT32_MAX;
+  int q;
+  for (int i = 0; i < 9; i++) {
+    q = this->at(i)->get_quantity();
+    if (q > 0 && q < min) {
+      min = q;
+    }
+  }
+  return min;
+}
+void CraftState::clean(int items_used) {
+  Item *tmp;
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      tmp = this->slot[i][j];
+      if (tmp->get_quantity() > items_used) {
+        tmp->set_quantity(tmp->get_quantity() - items_used);
+      } else if (tmp->get_quantity() == items_used) {
+        delete this->slot[i][j];
+        this->slot[i][j] = new NonTool();
+        this->slot[i][j]->set_name("-");
+      }
+    }
   }
 }
