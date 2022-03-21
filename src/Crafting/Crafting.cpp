@@ -82,6 +82,15 @@ void Crafting::add_item(Tool i, int lokasi) {
   this->refreshOutput();
 }
 
+void Crafting::add_item(Item* i, int lokasi) {
+    if(i->get_type() == "TOOL"){
+        this->add_item(*dynamic_cast<Tool*>(i), lokasi);
+    } else if(i->get_type() == "NONTOOL"){
+        this->add_item(*dynamic_cast<NonTool*>(i), lokasi);
+    }
+}
+
+
 void Crafting::addRecipe(int *dimension, string **input, string output,
                          int output_q) {
   this->ac.addRecipe(dimension, input, output, output_q);
@@ -102,6 +111,8 @@ Item *Crafting::return_item(int lokasi) {
 
 Item *Crafting::craft() {
   Item *it = this->output;
+  /* this->show(); */
+  /* cout << "Craft ? (y/n): "; */
   this->refreshCraftState();
   return it;
 }

@@ -22,6 +22,7 @@ public:
   // Menambahkan item ke lokasi
   // row = lokasi `div` 3
   // col = lokasi `mod` 3
+  void add_item(Item* i, int lokasi);
   void add_item(NonTool i, int lokasi);
   void add_item(Tool t, int lokasi);
   void refreshOutput();
