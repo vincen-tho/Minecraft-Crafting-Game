@@ -44,17 +44,41 @@ int main()
       }
       else if (command == "DISCARD")
       {
-        //SOME EXCEPTIONS, change parameters as you desire
+        string slotSrc;
+        int idSlotSrc;
+        char typeSlotSrc;
+        int itemQty;
 
-        //NO ITEM EXCEPTION
-        //BaseException *E = new NoItemInventoryException(INVENTORY_SLOT_ID);
-        //throw(E);
+        cin >> slotSrc >> itemQty;
+        istringstream sSrc(slotSrc);
+        
+        sSrc >> typeSlotSrc >> itemQty;
 
-        //Exception kalau itemQty <= 0 
-        //BaseException *E = new InvalidNumberException<int>(itemQty);
-        //throw(E);
 
-        //Should i make an exception if itemQty > Quantity yang ada?, ato kalo lebih interactionnya sama kalau ke delete total?
+        if(typeSlotSrc == 'I'){
+          if (itemQty <= 0)
+          {
+            BaseException *E = new InvalidNumberException(itemQty);
+            throw(E);
+          }
+          else if (itemQty > Inv[idSlotSrc].first->get_quantity())
+          {
+              BaseException *E = new InputGreaterException(itemQty,Inv[idSlotSrc].first->get_quantity());
+              throw (E);
+          }
+          else if (Inv[idSlotSrc].first->get_name() == "noname"){
+            //NO ITEM EXCEPTION
+            BaseException *E = new NoItemInventoryException(idSlotSrc);
+            throw(E);
+        }
+          {
+              Inv.DISCARD(idSlotSrc,itemQty);
+          }
+        }
+        else{
+          BaseException *E = new InvalidInputException<string>(slotSrc);
+          throw (E);
+        }
       }
       else if (command == "EXPORT")
       {
@@ -95,7 +119,7 @@ int main()
         cin >> itemName >> itemQty;
         if (itemQty <= 0)
         {
-          BaseException *E = new InvalidNumberException<int>(itemQty);
+          BaseException *E = new InvalidNumberException(itemQty);
           throw(E);
         }
         else if (/*TODO: Verify if ITEM_NAME IS VALID*/ true)
@@ -129,12 +153,12 @@ int main()
           sDst >> typeSlotDst >> idSlotDest;
           if( typeSlotDst == 'I' && slotQty == 1){
             if(idSlotDest > 26){
-              BaseException *E = new InvalidNumberException<int>(idSlotDest);
+              BaseException *E = new InvalidNumberException(idSlotDest);
               throw(E);
             }
           
             if(idSlotSrc > 8){
-              BaseException *E = new InvalidNumberException<int>(idSlotSrc);
+              BaseException *E = new InvalidNumberException(idSlotSrc);
               throw (E);
             }
 
@@ -144,7 +168,7 @@ int main()
         } 
         else if (typeSlotSrc == 'I'){
           if(idSlotSrc > 26){
-                BaseException *E = new InvalidNumberException<int>(idSlotSrc);
+                BaseException *E = new InvalidNumberException(idSlotSrc);
                 throw (E);
               }
           for (int i=0; i<slotQty; i++){
@@ -152,11 +176,12 @@ int main()
             istringstream sDst(slotDest);
             sDst >> typeSlotDst >> idSlotDest;
             if(slotQty > Inv[idSlotSrc].first->get_quantity()){
-              //exception item tidak cukup
+                BaseException *E = new InputGreaterException(slotQty,Inv[idSlotSrc].first->get_quantity());
+                throw (E);
             }
             if(typeSlotDst == 'C'){
               if(idSlotDest > 8){
-                BaseException *E = new InvalidNumberException<int>(idSlotDest);
+                BaseException *E = new InvalidNumberException(idSlotDest);
                 throw(E);
               }
               Item* temp = Inv[idSlotSrc].first;
@@ -164,9 +189,6 @@ int main()
               Inv.remove_item(temp,1);
             }
           }
-          
-            
-
         }
         //SOME EXCEPTIONS, change parameters as you desire
 
@@ -181,7 +203,7 @@ int main()
         //throw(E);
 
         //TRYING TO STACK TOOL EXCEPTION
-        //BaseException *E = new ToolStackException();
+        //BaseException *E = new ToolStackingException();
         //throw(E);
       }
       else if (command == "SHOW")

@@ -10,6 +10,7 @@ public:
     virtual void printMessage() = 0;
 };
 
+
 class NoRecipe : public BaseException {
 public:
     void printMessage() {
@@ -18,15 +19,41 @@ public:
 };
 
 template<class T>
+class InvalidInputException : public BaseException {
+private:
+    T Input;
+public:
+    InvalidInputException(T Input) {
+        this->Input = Input;
+    }
+    virtual void printMessage(){
+        cout << "Input " << Input << " tidak valid" << endl;
+    }
+};
+
 class InvalidNumberException : public BaseException {
 private:
-    T number;
+    int number;
 public:
-    InvalidNumberException(T number) {
+    InvalidNumberException(int number) {
         this->number = number;
     }
     void printMessage() {
         cout << "Bilangan " << number << " tidak valid" << endl;
+    }
+};
+
+class InputGreaterException : public BaseException {
+private:
+    int Input,Available;
+public:
+    InputGreaterException(int Input,int Available) {
+        this->Input = Input;
+        this->Available = Available;
+    }
+    void printMessage() {
+        cout << "Input " << Input << " lebih besar daripada "<< Available << "yang tersedia." << endl;
+        
     }
 };
 
@@ -53,9 +80,12 @@ public:
         cout << "Tidak bisa stack item " << ItemName1 << " dan " << ItemName2 << endl;
     }
 };
-
-
-
+class ToolStackingException : public BaseException {
+    public:
+    virtual void printMessage(){
+        cout << "Tidak Bisa Melakukan Stacking pada Tool." <<endl;
+    };
+};
 class SlotIdException : public BaseException {
 protected:
     int SLOT_ID;
@@ -70,7 +100,14 @@ class NotToolException : public SlotIdException {
 public:
     NotToolException(int SLOT_ID) : SlotIdException(SLOT_ID) {}
     void printMessage() {
-        cout << "INVENTORY SLOT ID: " << SLOT_ID << " bukan tool" << endl;
+        cout << "INVENTORY SLOT ID: " << SLOT_ID << " bukan Tool" << endl;
+    }
+};
+class NotNonToolException : public SlotIdException {
+public:
+    NotNonToolException(int SLOT_ID) : SlotIdException(SLOT_ID) {}
+    void printMessage() {
+        cout << "INVENTORY SLOT ID: " << SLOT_ID << " bukan Non-Tool" << endl;
     }
 };
 
@@ -90,30 +127,5 @@ public:
     }
 };
 
-
-// class TransactionFailedException : public BaseException {
-// private:
-//     BaseException* exc;
-// public:
-//     TransactionFailedException(BaseException* exc) {
-//         this->exc = exc;
-//     }
-//     void printMessage() {
-//         cout << "Transaksi gagal dengan pesan kesalahan: ";
-//         exc->printMessage();
-//     }
-// };
-
-// class AccountNotFoundException : public BaseException {
-// private:
-//     string number;
-// public:
-//     AccountNotFoundException(string number) {
-//         this->number = number;
-//     }
-//     void printMessage() {
-//         cout << "Tidak ditemukan rekening dengan nomor " << number << endl;
-//     }
-// };
 
 #endif
