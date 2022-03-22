@@ -237,6 +237,9 @@ int main()
           }
         }
       }
+      else if(command == "EXIT"){
+        break;
+      }
       else
       {
         // todo
