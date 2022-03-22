@@ -18,18 +18,19 @@ int main() {
   Inventory Inv;
   load_recipes(Craft);
   load_items(Craft);
-  Tool T1("Tool 112371093710273091730", 4);
-  Tool T2("Tool 1", 4);
-  NonTool OAK("OAK_LOG", 10, "-");
+  Item* i = Craft.search_item("DIAMOND");
+  NonTool NT("aowuvuiavwdivaduvawdka", 63, "-");
   /* Craft.show(); */
-  Craft.add_item(OAK, 0);
+  Craft.add_item(i, 0);
 
   /* Craft.show(); */
   
   Craft.show();
   /* showInventory(Inv); */
   /* // Move  */
-  /* Inv.add_item(1, T1, 10); */
+  Inv.add_item(1, i, 10);
+  Inv.add_item(2, NT, 11);
+  Inv.display_inventory();
   /* Item* temp = Inv[1].first; */
   /* Craft.add_item(temp,2); */
   /* Inv.remove_item(temp,1); */

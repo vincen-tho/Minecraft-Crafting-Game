@@ -3,6 +3,7 @@
 
 #include <utility>
 #include <string>
+#include <array>
 #include "../Item/Item.h"
 
 using namespace std;
