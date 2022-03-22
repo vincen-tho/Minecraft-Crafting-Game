@@ -19,9 +19,27 @@ int main()
   load_recipes(Craft); // Load Recipes
   load_items(Craft);   // Load Items
 
+  // Banner
+  cout << "           __                                    ___  __        " << endl;
+  cout << ".--------.|__|.-----..-----..----..----..---.-..'  _||  |_      " << endl;
+  cout << "|        ||  ||     ||  -__||  __||   _||  _  ||   _||   _|     " << endl; 
+  cout << "|__|__|__||__||__|__||_____||____||__|  |___._||__|  |____|     " << endl; 
+  cout << "                     ___  __    __                              " << endl;
+  cout << ".----..----..---.-..'  _||  |_ |__|.-----..-----.               " << endl;
+  cout << "|  __||   _||  _  ||   _||   _||  ||     ||  _  |               " << endl;       
+  cout << "|____||__|  |___._||__|  |____||__||__|__||___  |               " << endl;
+  cout << ".-----..---.-..--------..-----.           |_____|               " << endl;     
+  cout << "|  _  ||  _  ||        ||  -__|                                 " << endl;
+  cout << "|___  ||___._||__|__|__||_____|                                 " << endl;
+  cout << "|_____|                                                         " << endl;      
+  cout << endl;
+             
   string command;
-  while (cin >> command)
+  
+  while (command != "EXIT")
   {
+    cout << "ENTER COMMAND : " ;
+    cin >> command;
     try
     { 
       if (command == "CRAFT")
@@ -237,8 +255,8 @@ int main()
           }
         }
       }
-      else if(command == "EXIT"){
-        break;
+      else if("EXIT"){
+
       }
       else
       {
