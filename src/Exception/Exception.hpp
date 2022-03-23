@@ -10,14 +10,25 @@ public:
     virtual void printMessage() = 0;
 };
 
-
+class InventoryFull : public BaseException {
+public:
+    public:
+    void printMessage() {
+        cout << "Inventory penuh!" << endl;
+    }
+};
 class NoRecipe : public BaseException {
 public:
     void printMessage() {
         cout << "Tidak ada Recipe yang valid" << endl;
     }
 };
-
+class ItemNotFound : public BaseException {
+public:
+    void printMessage() {
+        cout << "Item tidak ditemukan" << endl;
+    }
+};
 template<class T>
 class InvalidInputException : public BaseException {
 private:
@@ -30,7 +41,6 @@ public:
         cout << "Input " << Input << " tidak valid" << endl;
     }
 };
-
 class InvalidNumberException : public BaseException {
 private:
     int number;
@@ -42,7 +52,6 @@ public:
         cout << "Bilangan " << number << " tidak valid" << endl;
     }
 };
-
 class InputGreaterException : public BaseException {
 private:
     int Input,Available;
@@ -56,7 +65,6 @@ public:
         
     }
 };
-
 class ItemNameException : public BaseException {
 private:
     string itemName;
@@ -86,6 +94,8 @@ class ToolStackingException : public BaseException {
         cout << "Tidak Bisa Melakukan Stacking pada Tool." <<endl;
     };
 };
+
+
 class SlotIdException : public BaseException {
 protected:
     int SLOT_ID;
@@ -95,7 +105,13 @@ public:
     }
     virtual void printMessage() = 0;
 };
-
+class SlotIdFullException : public SlotIdException{
+public:
+    SlotIdFullException(int SLOT_ID) : SlotIdException(SLOT_ID) {}
+    void printMessage() {
+        cout << "INVENTORY SLOT ID: " << SLOT_ID << " sudah full" << endl;
+    }
+};
 class NotToolException : public SlotIdException {
 public:
     NotToolException(int SLOT_ID) : SlotIdException(SLOT_ID) {}
@@ -110,7 +126,6 @@ public:
         cout << "INVENTORY SLOT ID: " << SLOT_ID << " bukan Non-Tool" << endl;
     }
 };
-
 class NoItemInventoryException : public SlotIdException {
 public:
     NoItemInventoryException(int SLOT_ID) : SlotIdException(SLOT_ID) {}
@@ -118,7 +133,6 @@ public:
         cout << "INVENTORY SLOT ID: " << SLOT_ID << " tidak mengandung item" << endl;
     }
 };
-
 class NoItemCraftingException : public SlotIdException {
 public:
     NoItemCraftingException(int SLOT_ID) : SlotIdException(SLOT_ID) {}

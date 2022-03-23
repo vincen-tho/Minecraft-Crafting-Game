@@ -106,8 +106,9 @@ void Inventory::add_item(NonTool item, int quantity)
 
     if (quantity > 0)
     {
-        cout << "Inventory penuh !" << endl;
         cout << "Jumlah yang masih tersedia: " << quantity << endl;
+        BaseException *E = new InventoryFull();
+        throw (E);
     }
 }
 
@@ -129,7 +130,8 @@ void Inventory::add_item(Tool item, int quantity)
     }
     else
     {
-        cout << "Inventory penuh !" << endl;
+        BaseException *E = new InventoryFull();
+        throw (E);
     }
 }
 
@@ -210,7 +212,8 @@ void Inventory::remove_item(Item *item, int quantity)
             }
         }
     }
-    cout << "Item tidak ditemukan" << endl;
+    BaseException *E = new ItemNotFound();
+    throw(E);
 }
 
 void Inventory::DISCARD(int inventoryID, int quantity)
@@ -234,13 +237,13 @@ void Inventory::MOVE(int srcID, int destID)
 {
     if (inventory[srcID].second == 0)
     {
-        cout << "Tidak ada item yang dipindahkan" << endl;
-        return;
+        BaseException *E = new NoItemInventoryException(destID);
+        throw(E);
     }
     else if (inventory[destID].second == 64)
     {
-        cout << "Inventory dengan ID "<< destID << "sudah penuh" << endl;
-        return;
+        BaseException *E = new SlotIdFullException(destID);
+        throw(E);
     }
     else if (inventory[srcID].first->get_type() == "TOOL" &&
              inventory[destID].first->get_name() != "noname")
