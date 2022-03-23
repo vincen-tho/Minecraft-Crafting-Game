@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-class CraftState;
+#include "../../CraftState/CraftState.hpp"
 
 class Recipe {
   // Resep

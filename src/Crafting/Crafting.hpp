@@ -4,61 +4,51 @@
 #include "../Item/Item.h"
 #include "AllConfig/AllConfig.hpp"
 #include "CraftState/CraftState.hpp"
-using namespace std;
+#include <utility>
 
 class Crafting {
-  // Main class untuk fitur Crafting
 private:
-  CraftState *cs; // Array 3 x 3
-  AllConfig ac;   // Kumpulan Resep
-  Item* output;  // Nama item yang akan dihasilkan
-  int items_used;
-public:
-  // Konstruktor Biasa
-  Crafting();
+  AllConfig ac; // Berisi konfigurasi saat loading
+  CraftState cs; // Tabel Crafting
+  pair<Item *, int> output; // Output Crafting
+  int mul; // Multiplier, berguna untuk MultiCrafting
 
-  // Mendisplay CraftState dan Output
+public:
+  Crafting();
+  ~Crafting();
+
+  /* Option Config */
+  // Nambahin Resep
+  void addRecipe(int *dimension, string **input, string output, int output_q);
+  // Nambahin Tool
+  void addTool(string name, int quantity);
+  // Nambahin NonTool
+  void addNonTool(string name, int quantity, string variety);
+  // Mencari Tool yang namanya str
+  Item *searchTool(string str) const;
+  // Mencari NonTool yang namanya str
+  Item *searchNonTool(string str) const;
+
+  /* Option CraftState */
+  // Nambah Item *it dengan kuantitas q di lokasi loc
+  void add_item(Item *it, int q, int loc);
+  // Mengembalikan Item dari lokasi loc sebanyak q
+  pair<Item *, int> ret_item(int q, int loc);
+  // Mengembalikan Item dan quantity di loc
+  pair<Item *, int> at(int loc) const;
+
+  /* Option Crafting */
+  // True menandakan ada resep yang cocok
+  bool canCraft();
+  // Method Utama, mereturn Item dan Quantity
+  pair<Item *, int> CRAFT();
+  // Self-explanatory
+  void refreshOutput();
+  // Self-explanatory
+  void refreshCraftState();
+  // Men-display tabel Crafting dan apa yang bisa di-CRAFT
   void show() const;
 
-  // Menambahkan item ke lokasi
-  // row = lokasi `div` 3
-  // col = lokasi `mod` 3
-  void add_item(Item* i, int lokasi);
-  void add_item(NonTool i, int lokasi);
-  void add_item(Tool t, int lokasi);
-  void refreshOutput();
-
-  // Menambahkan resep ke ar
-  // dimension dan input akan di hard copy
-  void addRecipe(int *dimension, string **input,
-                 string output, int output_q);
-
-  // Menambahkan Tool ke ar
-  void addTool(string name, int quantity);
-  
-  // Menambahkan Non-Tool ke ar
-  void addNonTool(string name, int quantity, string variety);
-
-  // Mengembalikan item di lokasi
-  // row = lokasi `div` 3
-  // col = lokasi `mod` 3
-  Item* return_item(int lokasi);
-
-  // Jika bisa ngecraft
-  //    return Item
-  //    kosongin CraftState
-  //    kosongin Output
-  // Else
-  //    Do Nothing
-  Item* craft();
-  
-  bool canCraft() const;
-
-  // Mengosongkan CraftState dan Output
-  void refreshCraftState();
-
-  Item* search_item(string str) const;
-  Item* search_nontool(string str) const;
 };
 
 #endif

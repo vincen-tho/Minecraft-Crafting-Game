@@ -3,6 +3,7 @@
 
 #include "Recipe/Recipe.hpp"
 #include "../../Item/Item.h"
+#include <utility>
 #include <vector>
 #include <string>
 using namespace std;
@@ -32,7 +33,7 @@ public:
   // Output: Lokasi resep di recipes, jika gak ada return -1
   int search_recipe_idx(CraftState &cs) const;
 
-  Item* search_recipe(CraftState& cs) const;
+  pair<Item*, int> search_recipe(CraftState& cs) const;
 };
 
 #endif

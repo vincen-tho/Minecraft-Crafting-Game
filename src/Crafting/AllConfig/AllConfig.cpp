@@ -1,6 +1,7 @@
 #include "AllConfig.hpp"
 #include <algorithm>
 #include <iostream>
+#include <utility>
 #include <vector>
 
 using namespace std;
@@ -49,15 +50,13 @@ int AllConfig::search_recipe_idx(CraftState &cs) const {
          this->recipes.begin();
 }
 
-Item* AllConfig::search_recipe(CraftState &cs) const {
+pair<Item*, int> AllConfig::search_recipe(CraftState &cs) const {
   int idx = this->search_recipe_idx(cs);
   if (idx == this->recipes.end() - recipes.begin()) {
     Item* not_found = new Item();
-    not_found->set_name("-");
-    return not_found;
+    return make_pair(not_found, 0);
   } else {
     Item* i = this->search_item(this->recipes[idx].get_output());
-    i->set_quantity(this->recipes[idx].get_output_q());
-    return i;
+    return make_pair(i, this->recipes[idx].get_output_q());
   }
 }

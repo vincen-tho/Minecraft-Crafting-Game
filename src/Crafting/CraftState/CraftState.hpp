@@ -2,47 +2,58 @@
 #define __CRAFTSTATE_HPP__
 
 #include "../../Item/Item.h"
-#include "../AllConfig/AllConfig.hpp"
 #include <array>
-#include <string>
+#include <utility>
 
-using namespace std;
+class AllConfig;
+class Recipe;
 
 class CraftState {
-  // Kelas ini merupakan array 3 x 3 di Crafting
 private:
-  Item ***slot; // Array 3 x 3
-  array<int, 2> top_left;
-  array<int, 2> bot_rght;
-  array<int, 2> dimension;
-  /* int *top_left; */
-  /* int *dimension; */
+  std::pair<Item *, int> table[3][3];
+  array<int, 2> top_lft;
+  array<int, 2> bot_rht;
 
 public:
   CraftState();
   ~CraftState();
 
-  // Tambah Item
-  void addItem(Item *i, int lokasi);
+  // Menambahkan Item
+  void add_item(Item *it, int q, int loc);
 
-  // Kembalikan Item
-  Item *returnItem(int lokasi);
+  // Mengambil Item dari slot
+  std::pair<Item *, int> return_item(int q, int loc);
 
-  // show
-  void show();
+  // Mengembalikan elemen di loc, bisa diubah
+  pair<Item *, int>& at(int loc);
 
-  array<int, 2> loc_to_coor(int loc) const;
-  int coor_to_loc(array<int, 2> coor) const;
-  void update_dimension(int row, int col);
-  array<int, 2> get_dimension() const;
-  array<int, 2> dur_add_check() const;
-  Item *add_tool(array<int, 2> coor) const;
+  // Mengembalikan elemen di loc, tidak bisa diubah
+  pair<Item *, int> at(int loc) const;
+
+  // Mengembalikan elemen di [row, col], tidak bisa diubah
+  pair<Item *, int> get(int row, int col) const;
+
+  // Update top left dan bottom right
+  void update_boundary(int loc);
+
+  // Kayak update boundary, tapi nge-loop keseluruhnya
+  void reset_boundary();
+
+  // Check kasus penambahan durability item
+  array<int, 2> dur_add_chk() const;
+
+  // Menambahkan dua tool
+  pair<Item*, int> add_dur(array<int, 2> tool_loc);
+
   int get_min_used() const;
 
-  Item *at(int lokasi) const;
-  void clean(int items_used);
+  array<int, 2> get_dimensions() const;
 
-  // Dobel supaya komutatif
+  void clean(int q);
+
+  // Print ke console
+  void show() const;
+
   friend bool operator==(const CraftState &cs, const Recipe &r);
   friend bool operator==(const Recipe &r, const CraftState &cs);
 };

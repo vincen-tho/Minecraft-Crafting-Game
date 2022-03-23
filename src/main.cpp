@@ -4,6 +4,7 @@
 #include <string>
 #include <ctype.h>
 #include <stdio.h>
+#include <utility>
 #include <vector>
 #include <sstream>
 
@@ -48,8 +49,9 @@ int main()
         
         if(Craft.canCraft()){
           // Gak tau mau return ke mana
-          Item *resultItem = Craft.craft();
-          Inv.add_item(resultItem, resultItem->get_quantity());
+          /* Item *resultItem = Craft.craft(); */
+          pair<Item*, int> resultItem = Craft.CRAFT();
+          Inv.add_item(resultItem.first, resultItem.second);
         } else {
           BaseException* E = new NoRecipe();
           throw(E);
@@ -148,7 +150,7 @@ int main()
         // }
         else
         {
-          Item *newItem = Craft.search_item(itemName);
+          Item *newItem = Craft.searchNonTool(itemName);
           Inv.add_item(newItem, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
         }
       }
@@ -183,8 +185,10 @@ int main()
               throw (E);
             }
 
-            Item* temp = Craft.return_item(idSlotSrc);
-            Inv.add_item(idSlotDest, temp, slotQty);
+            /* Item* temp = Craft.return_item(idSlotSrc); */
+            /* Inv.add_item(idSlotDest, temp, slotQty); */
+            pair<Item*, int> tmp = Craft.ret_item(slotQty, idSlotSrc);
+            Inv.add_item(idSlotDest, tmp.first, tmp.second);
           }
         } 
         else if (typeSlotSrc == 'I'){
@@ -206,7 +210,7 @@ int main()
                 throw(E);
               }
               Item* temp = Inv[idSlotSrc].first;
-              Craft.add_item(temp,idSlotDest);
+              Craft.add_item(temp,1, idSlotDest);
               Inv.remove_item(temp,1);
             }else if(typeSlotDst == 'I'){
 
