@@ -70,10 +70,11 @@ int main()
         cin >> slotSrc >> itemQty;
         istringstream sSrc(slotSrc);
         
-        sSrc >> typeSlotSrc >> itemQty;
+        sSrc >> typeSlotSrc >> idSlotSrc;
 
 
         if(typeSlotSrc == 'I'){
+          
           if (itemQty <= 0)
           {
             BaseException *E = new InvalidNumberException(itemQty);
@@ -88,9 +89,9 @@ int main()
             //NO ITEM EXCEPTION
             BaseException *E = new NoItemInventoryException(idSlotSrc);
             throw(E);
-        }
-          {
-              Inv.DISCARD(idSlotSrc,itemQty);
+          
+          } else {
+            Inv.DISCARD(idSlotSrc,itemQty);
           }
         }
         else{
@@ -103,7 +104,6 @@ int main()
         string exportPath = "./";
         string outputPath;
         
-        cout << "Input path file export : " ;
         cin >> outputPath;
         
         ofstream outputFile(exportPath + outputPath);
@@ -146,7 +146,7 @@ int main()
         // }
         else
         {
-          Item *newItem = new NonTool(itemName, itemQty, "novariant");
+          Item *newItem = Craft.search_item(itemName);
           Inv.add_item(newItem, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
         }
       }
@@ -256,7 +256,19 @@ int main()
           }
         }
       }
-      else if("EXIT"){
+      else if(command == "HELP"){
+        cout << "1. SHOW " << endl;
+        cout << "2. GIVE <Item_Name> <Item_Quantity> " << endl;
+        cout << "3. DISCARD <Inventory_Slot_ID> <Item_Quantity> " << endl;
+        cout << "4. MOVE " << endl;
+        cout << "5. MOVE " << endl;
+        cout << "6. MOVE " << endl;
+        cout << "7. USE <Inventory_Slot_ID> " << endl;
+        cout << "8. CRAFT" << endl;
+        cout << "9. EXPORT <path_file>" << endl;
+
+      }
+      else if(command == "EXIT"){
 
       }
       else
