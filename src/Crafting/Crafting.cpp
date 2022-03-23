@@ -9,14 +9,20 @@ bool arr_check(string **recipe, Item ***arr_item, array<int, 2> item_dim,
                array<int, 2> item_tl) {
   bool n_check = true; // Normal
   bool m_check = true; // Mirror
+  string s;
+  Item *it;
   for (int i = 0; i < item_dim[0]; i++) {
     for (int j = 0; j < item_dim[1]; j++) {
+      it = arr_item[item_tl[0] + i][item_tl[1] + j];
+      if (it->get_type() == "NONTOOL") {
+        s = dynamic_cast<NonTool *>(it)->get_variant();
+      } else {
+        s = "";
+      }
       n_check =
-          n_check &&
-          arr_item[item_tl[0] + i][item_tl[1] + j]->get_name() == recipe[i][j];
-      m_check =
-          m_check && arr_item[item_tl[0] + i][item_tl[1] + j]->get_name() ==
-                         recipe[i][item_dim[1] - j - 1];
+          n_check && (it->get_name() == recipe[i][j] || s == recipe[i][j]);
+      m_check = m_check && (it->get_name() == recipe[i][item_dim[1] - j - 1] ||
+                            s == recipe[i][item_dim[1] - j - 1]);
     }
   }
   return n_check || m_check;
@@ -65,7 +71,7 @@ void Crafting::show() const {
 void Crafting::refreshOutput() {
   array<int, 2> ToolLoc = this->cs->dur_add_check();
   if (ToolLoc == array<int, 2>{-1, -1}) {
-    Item* tmp = this->ac.search_recipe(*this->cs);
+    Item *tmp = this->ac.search_recipe(*this->cs);
     this->items_used = this->cs->get_min_used();
     tmp->set_quantity(tmp->get_quantity() * this->items_used);
     this->output = tmp;
@@ -87,14 +93,13 @@ void Crafting::add_item(Tool i, int lokasi) {
   this->refreshOutput();
 }
 
-void Crafting::add_item(Item* i, int lokasi) {
-    if(i->get_type() == "TOOL"){
-        this->add_item(*dynamic_cast<Tool*>(i), lokasi);
-    } else if(i->get_type() == "NONTOOL"){
-        this->add_item(*dynamic_cast<NonTool*>(i), lokasi);
-    }
+void Crafting::add_item(Item *i, int lokasi) {
+  if (i->get_type() == "TOOL") {
+    this->add_item(*dynamic_cast<Tool *>(i), lokasi);
+  } else if (i->get_type() == "NONTOOL") {
+    this->add_item(*dynamic_cast<NonTool *>(i), lokasi);
+  }
 }
-
 
 void Crafting::addRecipe(int *dimension, string **input, string output,
                          int output_q) {
@@ -120,15 +125,13 @@ Item *Crafting::craft() {
   return it;
 }
 
-bool Crafting::canCraft() const{
-    return this->output->get_name() != "-";
-}
+bool Crafting::canCraft() const { return this->output->get_name() != "-"; }
 
 void Crafting::refreshCraftState() {
-    this->cs->clean(this->items_used);
+  this->cs->clean(this->items_used);
   this->output = new Item();
   this->output->set_name("-");
 }
-Item* Crafting::search_item(string str) const {
-    return this->ac.search_item(str);
+Item *Crafting::search_item(string str) const {
+  return this->ac.search_item(str);
 }

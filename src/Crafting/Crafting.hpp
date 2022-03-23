@@ -58,6 +58,7 @@ public:
   void refreshCraftState();
 
   Item* search_item(string str) const;
+  Item* search_nontool(string str) const;
 };
 
 #endif
