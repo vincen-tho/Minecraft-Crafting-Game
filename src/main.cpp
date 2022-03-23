@@ -140,13 +140,14 @@ int main()
           BaseException *E = new InvalidNumberException(itemQty);
           throw(E);
         }
-        else if (/*TODO: Verify if ITEM_NAME IS VALID*/ true)
-        {
-          BaseException *E = new ItemNameException(itemName);
-        }
+        // else if (/*TODO: Verify if ITEM_NAME IS VALID*/ true)
+        // {
+        //   BaseException *E = new ItemNameException(itemName);
+        // }
         else
         {
-          // Inv.add_item(itemName, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
+          Item *newItem = new NonTool(itemName, itemQty, "novariant");
+          Inv.add_item(newItem, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
         }
       }
       else if (command == "MOVE")

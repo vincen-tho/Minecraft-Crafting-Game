@@ -39,9 +39,9 @@ void Inventory::add_item(Item *item, int quantity)
     }
 }
 
-void Inventory::add_item(Tool item, int quantity)
+void Inventory::add_item(NonTool item, int quantity)
 {
-    Item *t = new Tool(item);
+    Item *t = new NonTool(item);
 
     //dicari dulu item yang namanya sama
     int i = 0;
@@ -96,9 +96,9 @@ void Inventory::add_item(Tool item, int quantity)
     }
 }
 
-void Inventory::add_item(NonTool item, int quantity)
+void Inventory::add_item(Tool item, int quantity)
 {
-    Item *nt = new NonTool(item);
+    Item *nt = new Tool(item);
 
     int i = 0;
 
