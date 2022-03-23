@@ -82,9 +82,9 @@ int main()
             BaseException *E = new InvalidNumberException(itemQty);
             throw(E);
           }
-          else if (itemQty > Inv[idSlotSrc].second)
+          else if (itemQty > Inv[idSlotSrc].first->get_quantity())
           {
-              BaseException *E = new InputGreaterException(itemQty,Inv[idSlotSrc].second);
+              BaseException *E = new InputGreaterException(itemQty,Inv[idSlotSrc].first->get_quantity());
               throw (E);
           }
           else if (Inv[idSlotSrc].first->get_name() == "noname"){
@@ -126,8 +126,10 @@ int main()
 
           if (i < 26){
             outputFile << endl;
-          } 
+          }
+          
         }
+
         cout << "Exported" << endl;
       }
       else if (command == "GIVE")
@@ -135,10 +137,20 @@ int main()
         string itemName;
         int itemQty;
         cin >> itemName >> itemQty;
-        
-        Item *newItem = Craft.search_item(itemName);
-        Inv.add_item(newItem, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
-      
+        if (itemQty <= 0)
+        {
+          BaseException *E = new InvalidNumberException(itemQty);
+          throw(E);
+        }
+        // else if (/*TODO: Verify if ITEM_NAME IS VALID*/ true)
+        // {
+        //   BaseException *E = new ItemNameException(itemName);
+        // }
+        else
+        {
+          Item *newItem = Craft.search_item(itemName);
+          Inv.add_item(newItem, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
+        }
       }
       else if (command == "MOVE")
       {
@@ -151,6 +163,7 @@ int main()
         // cout << "TODO" << endl;
         istringstream sSrc(slotSrc);
         
+        
         sSrc >> typeSlotSrc >> idSlotSrc;
         
         // MOVE dari crafting slot ke inventory
@@ -160,7 +173,11 @@ int main()
           istringstream sDst(slotDest);
           sDst >> typeSlotDst >> idSlotDest;
           if( typeSlotDst == 'I' && slotQty == 1){
-            
+            if(idSlotDest > 26){
+              BaseException *E = new InvalidNumberException(idSlotDest);
+              throw(E);
+            }
+          
             if(idSlotSrc > 8){
               BaseException *E = new InvalidNumberException(idSlotSrc);
               throw (E);
@@ -171,12 +188,18 @@ int main()
           }
         } 
         else if (typeSlotSrc == 'I'){
-          
+          if(idSlotSrc > 26){
+                BaseException *E = new InvalidNumberException(idSlotSrc);
+                throw (E);
+              }
           for (int i=0; i<slotQty; i++){
             cin>>slotDest;
             istringstream sDst(slotDest);
             sDst >> typeSlotDst >> idSlotDest;
-            
+            if(slotQty > Inv[idSlotSrc].second){
+                BaseException *E = new InputGreaterException(slotQty,Inv[idSlotSrc].second);
+                throw (E);
+            }
             if(typeSlotDst == 'C'){
               if(idSlotDest > 8){
                 BaseException *E = new InvalidNumberException(idSlotDest);
@@ -185,9 +208,10 @@ int main()
               Item* temp = Inv[idSlotSrc].first;
               Craft.add_item(temp,idSlotDest);
               Inv.remove_item(temp,1);
-            }
-            else if(typeSlotDst == 'I'){
+            }else if(typeSlotDst == 'I'){
+
               Inv.MOVE(idSlotSrc, idSlotDest);
+
             }
           }
         }
@@ -209,8 +233,8 @@ int main()
       }
       else if (command == "SHOW")
       {
-        Craft.show();
-        Inv.display_inventory();
+         Craft.show();
+         Inv.display_inventory();
       }
       else if (command == "USE")
       { 
