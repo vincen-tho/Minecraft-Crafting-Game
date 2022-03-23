@@ -52,7 +52,7 @@ public:
         this->Available = Available;
     }
     void printMessage() {
-        cout << "Input " << Input << " lebih besar daripada "<< Available << "yang tersedia." << endl;
+        cout << "Input " << Input << " lebih besar daripada "<< Available << " yang tersedia." << endl;
         
     }
 };

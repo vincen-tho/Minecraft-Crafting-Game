@@ -4,6 +4,7 @@
 #include <utility>
 #include <string>
 #include "../Item/Item.h"
+#include "../Exception/Exception.hpp"
 
 using namespace std;
 

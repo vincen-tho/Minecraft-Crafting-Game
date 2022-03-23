@@ -17,6 +17,16 @@ Inventory::Inventory()
 // if item quantity is greater than 64 then add item to the next available slot
 void Inventory::add_item(int inventoryID, Item *item, int quantity)
 {
+    if(quantity <= 0 || inventoryID < 0){
+        BaseException *E = new InvalidNumberException(quantity);
+        throw(E);
+    }
+
+    if(inventoryID > 26){
+        BaseException *E = new InputGreaterException(inventoryID, 26);
+        throw(E);
+    }
+    
     if (item->get_type() == "TOOL")
     {
         this->add_item(inventoryID, *dynamic_cast<Tool *>(item), quantity);
@@ -29,6 +39,11 @@ void Inventory::add_item(int inventoryID, Item *item, int quantity)
 
 void Inventory::add_item(Item *item, int quantity)
 {
+    if(quantity <= 0){
+        BaseException *E = new InvalidNumberException(quantity);
+        throw(E);
+    }
+
     if (item->get_type() == "TOOL")
     {
         this->add_item(*dynamic_cast<Tool *>(item), quantity);
@@ -91,8 +106,8 @@ void Inventory::add_item(NonTool item, int quantity)
 
     if (quantity > 0)
     {
-        cout << "Inventory is full" << endl;
-        cout << "Remaining Quantity: " << quantity << endl;
+        cout << "Inventory penuh !" << endl;
+        cout << "Jumlah yang masih tersedia: " << quantity << endl;
     }
 }
 
@@ -114,7 +129,7 @@ void Inventory::add_item(Tool item, int quantity)
     }
     else
     {
-        cout << "Inventory is full" << endl;
+        cout << "Inventory penuh !" << endl;
     }
 }
 
@@ -125,7 +140,8 @@ void Inventory::add_item(int inventoryID, Tool item, int quantity)
 
     if (inventory[inventoryID].first->get_name() != "noname")
     {
-        cout << "Inventory slot is used" << endl;
+        BaseException *E = new ToolStackingException();
+        throw (E);
     }
     else
     {
@@ -141,7 +157,9 @@ void Inventory::add_item(int inventoryID, NonTool item, int quantity)
     if ((inventory[inventoryID].first->get_name() != nt->get_name()) &&
         (inventory[inventoryID].first->get_name() != "noname"))
     {
-        cout << "Inventory slot is used" << endl;
+        BaseException *E = new DifferentItemStackException(nt->get_name(),
+        inventory[inventoryID].first->get_name());
+        throw(E);
     }
     else if (inventory[inventoryID].first->get_name() == nt->get_name())
     {
@@ -181,7 +199,8 @@ void Inventory::remove_item(Item *item, int quantity)
             }
             else if (inventory[i].second - quantity < 0)
             {
-                cout << "Not enough quantity" << endl;
+                BaseException *E = new InputGreaterException(quantity,inventory[i].second);
+                throw(E);
                 return;
             }
             else
@@ -191,7 +210,7 @@ void Inventory::remove_item(Item *item, int quantity)
             }
         }
     }
-    cout << "Item not found" << endl;
+    cout << "Item tidak ditemukan" << endl;
 }
 
 void Inventory::DISCARD(int inventoryID, int quantity)
@@ -202,7 +221,8 @@ void Inventory::DISCARD(int inventoryID, int quantity)
     }
     else if (inventory[inventoryID].second - quantity < 0)
     {
-        cout << "Not enough quantity" << endl;
+        BaseException *E = new InputGreaterException(quantity,inventory[inventoryID].second);
+        throw(E);
     }
     else
     {
@@ -214,18 +234,19 @@ void Inventory::MOVE(int srcID, int destID)
 {
     if (inventory[srcID].second == 0)
     {
-        cout << "No item to move" << endl;
+        cout << "Tidak ada item yang dipindahkan" << endl;
         return;
     }
     else if (inventory[destID].second == 64)
     {
-        cout << "Destination is full" << endl;
+        cout << "Inventory dengan ID "<< destID << "sudah penuh" << endl;
         return;
     }
     else if (inventory[srcID].first->get_type() == "TOOL" &&
              inventory[destID].first->get_name() != "noname")
     {
-        cout << "Cannot stack tool" << endl;
+        BaseException *E = new ToolStackingException();
+        throw(E);
     }
     else if (inventory[srcID].first->get_type() == "NONTOOL")
     {
@@ -247,18 +268,31 @@ void Inventory::MOVE(int srcID, int destID)
         }
         else
         {
-            cout << "Cannot stack different item" << endl;
+            BaseException *E = new DifferentItemStackException(inventory[srcID].first->get_name(),
+            inventory[destID].first->get_name());
+            throw(E);
         }
     }
 }
 
 pair<Item *, int> Inventory::operator[](int i) const
 {
-
+    if(i < 0 || i > 26){
+        BaseException *E = new InvalidInputException(i);
+        throw(E);
+    }
     return this->inventory[i];
 }
 
-pair<Item *, int> &Inventory::operator[](int i) { return this->inventory[i]; }
+pair<Item *, int> &Inventory::operator[](int i) 
+{ 
+    if(i < 0 || i > 26){
+        BaseException *E = new InvalidInputException(i);
+        throw(E);
+    }
+    return this->inventory[i]; 
+
+}
 
 void Inventory::display_inventory()
 {
