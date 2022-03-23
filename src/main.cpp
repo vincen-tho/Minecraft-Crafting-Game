@@ -44,14 +44,16 @@ int main()
     { 
       if (command == "CRAFT")
       {
-        cout << "TODO" << endl;
-        /* if(Craft.canCraft()){ */
-        /*     // Gak tau mau return ke mana */
-        /*     // Craft.craft(); */
-        /* } else { */
-        /*     BaseException* E = new NoRecipe(); */
-        /*     throw(E); */
-        /* } */
+        // cout << "TODO" << endl;
+        
+        if(Craft.canCraft()){
+          // Gak tau mau return ke mana
+          Item *resultItem = Craft.craft();
+          Inv.add_item(resultItem, resultItem->get_quantity());
+        } else {
+          BaseException* E = new NoRecipe();
+          throw(E);
+        }
 
         //SOME EXCEPTIONS, change parameters as you desire
 
