@@ -306,8 +306,14 @@ void Inventory::display_inventory()
         }
         else
         {
-            cout << setw(bufn[i % 9]) << inventory[i].first->get_name() << "("
+            if(inventory[i].first->get_type() == "NONTOOL"){
+                cout << setw(bufn[i % 9]) << inventory[i].first->get_name() << "("
                  << setw(bufq[i % 9]) << inventory[i].second << ") ]";
+            } else if(inventory[i].first->get_type() == "TOOL"){
+                cout << setw(bufn[i % 9]) << inventory[i].first->get_name() << "("
+                 << setw(bufq[i % 9]) << inventory[i].first->get_durability() << ") ]";
+            }
+            
         }
         if (i % 9 == 8)
         {
