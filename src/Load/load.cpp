@@ -15,10 +15,10 @@ void load_items(Crafting& c){
   while(itemConfigFile >> ID >> name >> variant >> toolType){
     if(toolType == "NONTOOL") {
       // construct item yang telah dibaca
-      c.addNonTool(name, 10, variant);
+      c.addNonTool(name, 0, variant);
     }else if (toolType == "TOOL"){
       // construct item yang telah dibaca
-      c.addTool(name, 10);
+      c.addTool(name, 0);
     }
   }
   itemConfigFile.close();
