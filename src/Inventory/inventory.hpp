@@ -3,7 +3,6 @@
 
 #include <utility>
 #include <string>
-#include <array>
 #include "../Item/Item.h"
 
 using namespace std;
@@ -16,6 +15,10 @@ private:
 public:
     Inventory();
     void add_item(int inventoryID, Item *item, int quantity);
+    void add_item(Item *item, int quantity);
+
+    void add_item(Tool item, int quantity);
+    void add_item(NonTool item, int quantity);
     
     void add_item(int inventoryID, Tool item, int quantity);
     void add_item(int inventoryID, NonTool item, int quantity);
