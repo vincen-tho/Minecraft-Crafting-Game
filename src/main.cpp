@@ -79,21 +79,20 @@ int main()
 
         if(typeSlotSrc == 'I'){
           
+          
           if (itemQty <= 0)
           {
             BaseException *E = new InvalidNumberException(itemQty);
             throw(E);
           }
-          else if (itemQty > Inv[idSlotSrc].second)
-          {
-              BaseException *E = new InputGreaterException(itemQty,Inv[idSlotSrc].second);
-              throw (E);
-          }
           else if (Inv[idSlotSrc].first->get_name() == "noname"){
             //NO ITEM EXCEPTION
             BaseException *E = new NoItemInventoryException(idSlotSrc);
             throw(E);
-          
+          }
+          else if (itemQty > Inv[idSlotSrc].second){
+              BaseException *E = new InputGreaterException(itemQty,Inv[idSlotSrc].second);
+              throw (E);
           } else {
             Inv.DISCARD(idSlotSrc,itemQty);
           }
