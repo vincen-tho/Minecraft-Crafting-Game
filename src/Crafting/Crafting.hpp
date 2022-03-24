@@ -26,9 +26,11 @@ public:
   // Nambahin NonTool
   void addNonTool(int ID, string name, string variety);
   // Mencari Tool yang namanya str
-  Item *searchTool(string str) const;
+  /* Item *searchTool(string str) const; */
   // Mencari NonTool yang namanya str
-  Item *searchNonTool(string str) const;
+  /* Item *searchNonTool(string str) const; */
+  // Mencari Item
+  Item* searchItem(string str) const;
 
   /* Option CraftState */
   // Nambah Item *it dengan kuantitas q di lokasi loc

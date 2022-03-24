@@ -38,19 +38,29 @@ void Crafting::addNonTool(int ID, string name, string variety) {
   this->ac.addNonTool(ID, name,variety);
 }
 
-Item *Crafting::searchTool(string str) const {
-  Item *it = this->ac.search_item(str);
-  if (it->get_type() == "TOOL") {
-    return it;
-  } else {
-    BaseException *E = new ItemNotFound();
-    throw(E);
-  }
-}
+/* Item *Crafting::searchTool(string str) const { */
+/*   Item *it = this->ac.search_item(str); */
+/*   if (it->get_type() == "TOOL") { */
+/*     return it; */
+/*   } else { */
+/*     BaseException *E = new ItemNotFound(); */
+/*     throw(E); */
+/*   } */
+/* } */
+/**/
+/* Item *Crafting::searchNonTool(string str) const { */
+/*   Item *it = this->ac.search_item(str); */
+/*   if (it->get_type() == "NONTOOL") { */
+/*     return it; */
+/*   } else { */
+/*     BaseException *E = new ItemNotFound(); */
+/*     throw(E); */
+/*   } */
+/* } */
 
-Item *Crafting::searchNonTool(string str) const {
+Item *Crafting::searchItem(string str) const {
   Item *it = this->ac.search_item(str);
-  if (it->get_type() == "NONTOOL") {
+  if (it->get_name() == "noname") {
     return it;
   } else {
     BaseException *E = new ItemNotFound();

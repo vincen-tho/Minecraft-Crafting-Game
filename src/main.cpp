@@ -155,7 +155,7 @@ int main()
         // }
         else
         {
-          Item *newItem = Craft.searchNonTool(itemName);
+          Item *newItem = Craft.searchItem(itemName);
           cout << newItem->get_ID() << endl;
           Inv.add_item(newItem, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
         }

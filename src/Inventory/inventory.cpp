@@ -314,6 +314,14 @@ void Inventory::display_inventory()
         {
             name_len = inventory[pre_i].first->get_name().length();
         }
+        if (inventory[pre_i].first->get_type() == "TOOL")
+        {
+            name_q = floor(log10(inventory[pre_i].first->get_durability())) + 1;
+        }
+        else
+        {
+            name_q = floor(log10(inventory[pre_i].second)) + 1;
+        }
         name_q = floor(log10(inventory[pre_i].second)) + 1;
         if (name_len > bufn[pre_i % 9])
         {
