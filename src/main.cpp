@@ -84,9 +84,9 @@ int main()
             BaseException *E = new InvalidNumberException(itemQty);
             throw(E);
           }
-          else if (itemQty > Inv[idSlotSrc].first->get_quantity())
+          else if (itemQty > Inv[idSlotSrc].second)
           {
-              BaseException *E = new InputGreaterException(itemQty,Inv[idSlotSrc].first->get_quantity());
+              BaseException *E = new InputGreaterException(itemQty,Inv[idSlotSrc].second);
               throw (E);
           }
           else if (Inv[idSlotSrc].first->get_name() == "noname"){
