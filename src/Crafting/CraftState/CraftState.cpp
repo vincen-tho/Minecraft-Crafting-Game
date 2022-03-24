@@ -190,6 +190,7 @@ void CraftState::clean(int q) {
       }
     }
   }
+  this->reset_boundary();
 }
 
 string stripe_if_noname(string str) {
