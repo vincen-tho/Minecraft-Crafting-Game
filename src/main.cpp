@@ -146,7 +146,8 @@ int main()
         }
         // else if (/*TODO: Verify if ITEM_NAME IS VALID*/ true)
         // {
-        //   BaseException *E = new ItemNameException(itemName);
+        //  BaseException *E = new ItemNameException(itemName);
+        //  throw(&E)
         // }
         else
         {
