@@ -79,6 +79,7 @@ int main()
 
         if(typeSlotSrc == 'I'){
           
+          
           if (itemQty <= 0)
           {
             BaseException *E = new InvalidNumberException(itemQty);
@@ -89,12 +90,10 @@ int main()
             BaseException *E = new NoItemInventoryException(idSlotSrc);
             throw(E);
           }
-          else if (itemQty > Inv[idSlotSrc].second)
-          {
+          else if (itemQty > Inv[idSlotSrc].second){
               BaseException *E = new InputGreaterException(itemQty,Inv[idSlotSrc].second);
               throw (E);
-          }
-          else {
+          } else {
             Inv.DISCARD(idSlotSrc,itemQty);
           }
         }
