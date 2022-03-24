@@ -121,8 +121,11 @@ int main()
           else if (Inv[i].first->get_type() == "TOOL") {
             // masih belum tahu cara akses durability dari item nya
             outputFile << Inv[i].first->get_ID() << ":" << Inv[i].first->get_durability();
+          
           }else if(Inv[i].first->get_type() == "notype"){
+            
             outputFile << 0 << ":" << 0;
+          
           }
 
           if (i < 26){
@@ -200,9 +203,17 @@ int main()
             cin>>slotDest;
             istringstream sDst(slotDest);
             sDst >> typeSlotDst >> idSlotDest;
-            if(slotQty > Inv[idSlotSrc].second){
-                BaseException *E = new InputGreaterException(slotQty,Inv[idSlotSrc].second);
-                throw (E);
+            
+            if (Inv[idSlotSrc].first->get_name() == "noname"){
+            //NO ITEM EXCEPTION
+              BaseException *E = new NoItemInventoryException(idSlotSrc);
+              throw(E);
+            
+            } else if(slotQty > Inv[idSlotSrc].second){
+              
+              BaseException *E = new InputGreaterException(slotQty,Inv[idSlotSrc].second);
+              throw (E);
+            
             }
             if(typeSlotDst == 'C'){
               if(idSlotDest > 8){
@@ -258,7 +269,18 @@ int main()
         }
         else{
           if(Inv[invID].first->get_type() == "TOOL"){
-            Inv[invID].first->set_durability(Inv[invID].first->get_durability()-1);
+            
+            if(Inv[invID].first->get_durability()-1 > 0){
+
+              Inv[invID].first->set_durability(Inv[invID].first->get_durability()-1);
+
+            }else{
+
+              Inv.remove_item(Inv[invID].first, 1);
+
+            }
+            
+            
           }else{
             //NOT TOOL EXCEPTION
             BaseException *E = new NotToolException(invID);
