@@ -1,6 +1,7 @@
 #include "../lib.hpp"
 #include <iostream>
 #include <sstream>
+#include <string>
 #include <utility>
 
 using namespace std;
@@ -12,7 +13,11 @@ void CASE_1(Crafting& Craft, Inventory& Inv){
     Item* OAK_LOG = Craft.searchNonTool("OAK_LOG");
 
     cout << " 2. Tambah OAK_LOG ke Crafting lokasi 0" << endl;
-    Craft.add_item(OAK_LOG, 3, 0);
+    Craft.add_item(OAK_LOG, 3, 1);
+    Craft.show();
+    pair<Item*, int> ret_OAK_LOG = Craft.ret_item(3, 1);
+    Craft.show();
+    Craft.add_item(OAK_LOG, 3, 2);
 
     cout << " 3. SHOW" << endl;
     Craft.show();
@@ -105,7 +110,13 @@ int main() {
   load_recipes(Craft);
   load_items(Craft);
 
-  CASE_4(Craft, Inv);
+  try {
+  CASE_1(Craft, Inv);
+  
+  } catch (const char* err) {
+
+      cout << err << endl;
+  }
 
   return 0;
 }

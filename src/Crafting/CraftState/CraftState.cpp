@@ -31,13 +31,13 @@ void CraftState::add_item(Item *it, int q, int loc) {
     bool same_name = this->at(loc).first->get_name() == it->get_name();
     cout << same_name << endl;
     if (same_name && it->get_type() == "NONTOOL") {
-        cout << "Tambah" << endl;
+      cout << "Tambah" << endl;
       this->at(loc).second += q;
     } else if (same_name && it->get_type() == "TOOL") {
-        cout << "Tidak Bisa Stack Tool";
+      cout << "Tidak Bisa Stack Tool";
       throw "Tidak bisa stack Tool";
     } else {
-        cout << "2 Tidak Bisa Stack Tool";
+      cout << "2 Tidak Bisa Stack Tool";
       throw "Sudah ada Item di slot ini";
     }
   } else {
@@ -114,6 +114,8 @@ void CraftState::update_boundary(int loc) {
 }
 
 void CraftState::reset_boundary() {
+  this->bot_rht = {0, 0};
+  this->top_lft = {2, 2};
   for (int i = 0; i < 9; i++) {
     if (this->at(i).second > 0) {
       this->update_boundary(i);
@@ -204,6 +206,8 @@ void CraftState::show() const {
   pair<Item *, int> tmp;
   int q = 0;
   int n = 0;
+  /* cout << top_lft[0] << " " << top_lft[1] << endl; */
+  /* cout << bot_rht[0] << " " << bot_rht[1] << endl; */
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
       tmp = this->table[i][j];
