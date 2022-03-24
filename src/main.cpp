@@ -192,7 +192,21 @@ int main()
             /* Item* temp = Craft.return_item(idSlotSrc); */
             /* Inv.add_item(idSlotDest, temp, slotQty); */
             pair<Item*, int> tmp = Craft.ret_item(slotQty, idSlotSrc);
-            Inv.add_item(idSlotDest, tmp.first, tmp.second);
+            
+            if(Inv[idSlotDest].first->get_name() == tmp.first->get_name() && Inv[idSlotDest].second + tmp.second <= 64) {
+              
+              Inv.add_item(idSlotDest, tmp.first, tmp.second);
+            
+            }else if(Inv[idSlotDest].first->get_name() == "noname"){
+
+              Inv.add_item(idSlotDest, tmp.first, tmp.second);
+
+            } else {
+
+              Craft.add_item(tmp.first, tmp.second, idSlotSrc);
+
+            }
+            
           }
         } 
         else if (typeSlotSrc == 'I'){
