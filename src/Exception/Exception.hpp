@@ -29,6 +29,13 @@ public:
         cout << "Item tidak ditemukan" << endl;
     }
 };
+class ToolStackingException : public BaseException {
+    public:
+    virtual void printMessage(){
+        cout << "Tidak Bisa Melakukan Stacking pada Tool." <<endl;
+    };
+};
+
 template<class T>
 class InvalidInputException : public BaseException {
 private:
@@ -87,12 +94,6 @@ public:
     void printMessage() {
         cout << "Tidak bisa stack item " << ItemName1 << " dan " << ItemName2 << endl;
     }
-};
-class ToolStackingException : public BaseException {
-    public:
-    virtual void printMessage(){
-        cout << "Tidak Bisa Melakukan Stacking pada Tool." <<endl;
-    };
 };
 
 
