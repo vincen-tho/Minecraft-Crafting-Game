@@ -254,7 +254,7 @@ void Inventory::MOVE(int srcID, int destID)
     else if (inventory[srcID].first->get_type() == "NONTOOL")
     {
         if (inventory[srcID].first->get_name() ==
-            inventory[destID].first->get_name())
+            inventory[destID].first->get_name() )
         {
 
             if (inventory[destID].second + inventory[srcID].second > 64)
@@ -268,6 +268,12 @@ void Inventory::MOVE(int srcID, int destID)
                 inventory[destID].second += inventory[srcID].second;
                 inventory[srcID] = make_pair(new Item(), 0);
             }
+        }
+        else if(inventory[destID].first->get_name() == "noname"){
+            inventory[destID].first =  inventory[srcID].first;
+            inventory[destID].second = inventory[srcID].second;
+
+            inventory[srcID] = make_pair(new Item(), 0);
         }
         else
         {

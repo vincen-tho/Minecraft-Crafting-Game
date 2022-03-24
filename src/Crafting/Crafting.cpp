@@ -63,7 +63,7 @@ Item *Crafting::searchItem(string str) const {
   if (it->get_name() != "noname") {
     return it;
   } else {
-    throw(ItemNotFound());
+    throw(new ItemNotFound());
   }
 }
 
@@ -76,7 +76,7 @@ void Crafting::add_item(Item *it, int q, int loc) {
     new_Item = new NonTool(*dynamic_cast<NonTool *>(it));
     this->cs.add_item(new_Item, q, loc);
   } else {
-    throw(InvalidInputException<string>(it->get_type()));
+    throw(new InvalidInputException<string>(it->get_type()));
   }
   this->refreshOutput();
 }
@@ -87,7 +87,7 @@ pair<Item *, int> Crafting::ret_item(int q, int loc) {
   return ret;
 }
 
-pair<Item *, int> Crafting::at(int loc) const { return this->at(loc); }
+pair<Item *, int> Crafting::at(int loc) const { return this->cs.at(loc); }
 
 bool Crafting::canCraft() { return this->mul > 0; }
 

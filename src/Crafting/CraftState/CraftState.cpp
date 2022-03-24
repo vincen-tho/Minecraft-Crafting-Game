@@ -49,8 +49,9 @@ pair<Item *, int> CraftState::return_item(int q, int loc) {
   Item *ret = this->at(loc).first;
 
   // Check jumlah Item
+
   if (this->at(loc).second < q) {
-    throw InvalidNumberException(q);
+    throw new InvalidNumberException(q);
   }
 
   // Copy Item
@@ -59,7 +60,7 @@ pair<Item *, int> CraftState::return_item(int q, int loc) {
   } else if (ret->get_type() == "NONTOOL") {
     ret_cp = new NonTool(*dynamic_cast<NonTool *>(ret));
   } else {
-    throw InvalidInputException<string>(ret->get_type());
+    throw new InvalidInputException<string>(ret->get_type());
   }
 
   // Hapus Item kalau 0

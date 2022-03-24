@@ -193,8 +193,12 @@ int main()
 
             /* Item* temp = Craft.return_item(idSlotSrc); */
             /* Inv.add_item(idSlotDest, temp, slotQty); */
+            if(Craft.at(idSlotSrc).first->get_name() == "noname"){
+              BaseException *E = new NoItemCraftingException(idSlotSrc);
+              throw(E);
+            }
             pair<Item*, int> tmp = Craft.ret_item(slotQty, idSlotSrc);
-            
+
             if(Inv[idSlotDest].first->get_name() == tmp.first->get_name() && Inv[idSlotDest].second + tmp.second <= 64) {
               
               Inv.add_item(idSlotDest, tmp.first, tmp.second);
@@ -223,20 +227,39 @@ int main()
             
             if (Inv[idSlotSrc].first->get_name() == "noname"){
             //NO ITEM EXCEPTION
+                  int sisa = slotQty - i-1;
+                                for (int j=0; j < sisa; j++ ){
+                                  cin>>slotDest; 
+                                }
               BaseException *E = new NoItemInventoryException(idSlotSrc);
               throw(E);
             
             } else if(slotQty - i > Inv[idSlotSrc].second){
-              
+                int sisa = slotQty - i-1;
+                              for (int j=0; j < sisa; j++ ){
+                                cin>>slotDest; 
+                              }
               BaseException *E = new InputGreaterException(slotQty,Inv[idSlotSrc].second);
               throw (E);
             
             }
             if(typeSlotDst == 'C'){
               if(idSlotDest > 8){
+                int sisa = slotQty - i-1;
+              for (int j=0; j < sisa; j++ ){
+                cin>>slotDest; 
+              }
+
                 BaseException *E = new InvalidNumberException(idSlotDest);
                 throw(E);
               }
+
+               if(Craft.at(idSlotDest).first->get_name() != Inv[idSlotSrc].first->get_name() && Craft.at(idSlotDest).first->get_name() != "noname")
+                {
+                  BaseException *E = new DifferentItemStackException(Craft.at(idSlotDest).first->get_name(),Inv[idSlotSrc].first->get_name());
+                  throw(E);
+                }
+
               Item* temp = Inv[idSlotSrc].first;
               Craft.add_item(temp,1, idSlotDest);
               Inv.remove_item(temp,1);
