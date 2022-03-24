@@ -60,7 +60,7 @@ void Crafting::addNonTool(int ID, string name, string variety) {
 
 Item *Crafting::searchItem(string str) const {
   Item *it = this->ac.search_item(str);
-  if (it->get_name() == "noname") {
+  if (it->get_name() != "noname") {
     return it;
   } else {
     BaseException *E = new ItemNotFound();
