@@ -226,7 +226,7 @@ int main()
               BaseException *E = new NoItemInventoryException(idSlotSrc);
               throw(E);
             
-            } else if(slotQty > Inv[idSlotSrc].second){
+            } else if(slotQty - i > Inv[idSlotSrc].second){
               
               BaseException *E = new InputGreaterException(slotQty,Inv[idSlotSrc].second);
               throw (E);
