@@ -2,6 +2,7 @@
 #define __CRAFTING_H__
 
 #include "../Item/Item.h"
+#include "../Exception/Exception.hpp"
 #include "AllConfig/AllConfig.hpp"
 #include "CraftState/CraftState.hpp"
 #include <utility>

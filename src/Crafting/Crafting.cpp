@@ -43,7 +43,8 @@ Item *Crafting::searchTool(string str) const {
   if (it->get_type() == "TOOL") {
     return it;
   } else {
-    throw "TOOL NOT FOUND";
+    BaseException *E = new ItemNotFound();
+    throw(E);
   }
 }
 
@@ -52,7 +53,8 @@ Item *Crafting::searchNonTool(string str) const {
   if (it->get_type() == "NONTOOL") {
     return it;
   } else {
-    throw "NONTOOL NOT FOUND";
+    BaseException *E = new ItemNotFound();
+    throw(E);
   }
 }
 
@@ -65,7 +67,8 @@ void Crafting::add_item(Item *it, int q, int loc) {
     new_Item = new NonTool(*dynamic_cast<NonTool *>(it));
     this->cs.add_item(new_Item, q, loc);
   } else {
-    throw "TYPE NOT RECOGNIZED";
+    BaseException *E = new InvalidInputException(it->get_type());
+    throw(E);
   }
   this->refreshOutput();
 }
