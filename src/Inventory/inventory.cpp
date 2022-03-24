@@ -322,7 +322,6 @@ void Inventory::display_inventory()
         {
             name_q = floor(log10(inventory[pre_i].second)) + 1;
         }
-        name_q = floor(log10(inventory[pre_i].second)) + 1;
         if (name_len > bufn[pre_i % 9])
         {
             bufn[pre_i % 9] = name_len;

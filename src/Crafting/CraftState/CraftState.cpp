@@ -27,18 +27,15 @@ CraftState::~CraftState() {
 void CraftState::add_item(Item *it, int q, int loc) {
   if (this->at(loc).second > 0) {
     // Namanya sama
-    cout << "Nama" << endl;
     bool same_name = this->at(loc).first->get_name() == it->get_name();
-    cout << same_name << endl;
     if (same_name && it->get_type() == "NONTOOL") {
-      cout << "Tambah" << endl;
       this->at(loc).second += q;
     } else if (same_name && it->get_type() == "TOOL") {
-      cout << "Tidak Bisa Stack Tool";
-      throw "Tidak bisa stack Tool";
+      BaseException* E = new ToolStackingException();
+      throw E;
     } else {
-      cout << "2 Tidak Bisa Stack Tool";
-      throw "Sudah ada Item di slot ini";
+        BaseException *E = new DifferentItemStackException(this->at(loc).first->get_name(), it->get_name());
+      throw E;
     }
   } else {
     this->at(loc).first = it;
@@ -53,7 +50,7 @@ pair<Item *, int> CraftState::return_item(int q, int loc) {
 
   // Check jumlah Item
   if (this->at(loc).second < q) {
-    throw "Items gak cukup";
+    throw InvalidNumberException(q);
   }
 
   // Copy Item
@@ -62,7 +59,7 @@ pair<Item *, int> CraftState::return_item(int q, int loc) {
   } else if (ret->get_type() == "NONTOOL") {
     ret_cp = new NonTool(*dynamic_cast<NonTool *>(ret));
   } else {
-    throw "Type Error";
+    throw InvalidInputException<string>(ret->get_type());
   }
 
   // Hapus Item kalau 0

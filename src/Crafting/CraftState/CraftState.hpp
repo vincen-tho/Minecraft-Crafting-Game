@@ -2,6 +2,7 @@
 #define __CRAFTSTATE_HPP__
 
 #include "../../Item/Item.h"
+#include "../../Exception/Exception.hpp"
 #include <array>
 #include <utility>
 
