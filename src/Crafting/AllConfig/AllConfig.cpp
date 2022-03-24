@@ -19,12 +19,12 @@ void AllConfig::addRecipe(int *dimension, string **input, string output,
   this->recipes.push_back(Recipe(dimension, input, output, output_q));
 }
 
-void AllConfig::addTool(string name, int quantity) {
-  this->items.push_back(new Tool(name, quantity));
+void AllConfig::addTool(int ID, string name) {
+  this->items.push_back(new Tool(ID, name));
 }
 
-void AllConfig::addNonTool(string name, int quantity, string variety) {
-  this->items.push_back(new NonTool(name, quantity, variety));
+void AllConfig::addNonTool(int ID, string name, string variety) {
+  this->items.push_back(new NonTool(ID, name, variety));
 }
 
 bool operator==(Item *i, string name) { return i->get_name() == name; }

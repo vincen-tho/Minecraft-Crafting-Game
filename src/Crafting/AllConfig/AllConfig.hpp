@@ -22,8 +22,8 @@ public:
   void addRecipe(int *dimension, string **input,
                  string output, int output_q);
 
-  void addTool(string name, int quantity);
-  void addNonTool(string name, int quantity, string variety);
+  void addTool(int ID, string name);
+  void addNonTool(int ID, string name, string variety);
   int search_item_idx(string name) const;
   Item* search_item(string name) const;
 

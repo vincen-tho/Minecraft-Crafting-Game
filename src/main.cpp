@@ -18,7 +18,9 @@ int main()
   Inventory Inv;
   Crafting Craft;
   load_recipes(Craft); // Load Recipes
-  load_items(Craft);   // Load Items
+  load_items(Craft);
+  
+     // Load Items
 
   // Banner
   cout << "           __                                    ___  __        " << endl;
@@ -153,7 +155,10 @@ int main()
         // }
         else
         {
+          cout << "breakpoint 0" << endl;
           Item *newItem = Craft.searchNonTool(itemName);
+          cout << "breakpoint 1" << endl;
+          cout << newItem->get_ID() << endl;
           Inv.add_item(newItem, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
         }
       }

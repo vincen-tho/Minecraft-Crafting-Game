@@ -153,7 +153,7 @@ pair<Item *, int> CraftState::add_dur(array<int, 2> tool_loc) {
     newDur = 10;
   }
 
-  Tool *T = new Tool(T0->get_name(), 1);
+  Tool *T = new Tool(T0->get_ID(), T0->get_name());
   T->set_durability(newDur);
 
   return make_pair(dynamic_cast<Item *>(T), 1);

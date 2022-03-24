@@ -10,15 +10,16 @@ void load_items(Crafting& c){
   // read item from config file
   ifstream itemConfigFile(itemConfigPath);
   
-  string ID, name, variant, toolType;
+  int ID;
+  string name, variant, toolType;
   
   while(itemConfigFile >> ID >> name >> variant >> toolType){
     if(toolType == "NONTOOL") {
       // construct item yang telah dibaca
-      c.addNonTool(name, 0, variant);
+      c.addNonTool(ID, name,variant);
     }else if (toolType == "TOOL"){
       // construct item yang telah dibaca
-      c.addTool(name, 0);
+      c.addTool(ID, name);
     }
   }
   itemConfigFile.close();

@@ -22,9 +22,9 @@ public:
   // Nambahin Resep
   void addRecipe(int *dimension, string **input, string output, int output_q);
   // Nambahin Tool
-  void addTool(string name, int quantity);
+  void addTool(int ID, string name);
   // Nambahin NonTool
-  void addNonTool(string name, int quantity, string variety);
+  void addNonTool(int ID, string name, string variety);
   // Mencari Tool yang namanya str
   Item *searchTool(string str) const;
   // Mencari NonTool yang namanya str

@@ -30,12 +30,12 @@ void Crafting::addRecipe(int *dimension, string **input, string output,
                          int output_q) {
   this->ac.addRecipe(dimension, input, output, output_q);
 }
-void Crafting::addTool(string name, int quantity) {
-  this->ac.addTool(name, quantity);
+void Crafting::addTool(int ID, string name) {
+  this->ac.addTool(ID, name);
 }
 
-void Crafting::addNonTool(string name, int quantity, string variety) {
-  this->ac.addNonTool(name, quantity, variety);
+void Crafting::addNonTool(int ID, string name, string variety) {
+  this->ac.addNonTool(ID, name,variety);
 }
 
 Item *Crafting::searchTool(string str) const {

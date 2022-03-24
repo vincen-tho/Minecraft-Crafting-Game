@@ -5,22 +5,17 @@ using namespace std;
 
 class Item {
     private:
-        static int ID;
+        int ID;
         std :: string name;
         std :: string type;
-        int quantity;
-        int count;
     public:
         Item();
-        Item(std :: string name, std :: string type, int quantity);
+        Item(int ID, std :: string name, std :: string type);
         void set_name(std :: string name);
         std :: string get_name() const;
         void set_type(std :: string type);
         std :: string get_type() const;
         int get_ID() const;
-        void set_quantity(int quantity);
-        int get_quantity() const;
-        virtual void displayInfo() const;
         virtual int get_durability() const;
         virtual void set_durability(int durability);
         virtual std :: string get_variant() const;
@@ -32,10 +27,9 @@ class Tool : public Item{
         int durability;
     public:
         Tool();
-        Tool( std :: string name, int quantity);
+        Tool(int ID, std :: string name);
         void set_durability(int durability);
         int get_durability() const;
-        void displayInfo() const;
         void operator=(const Tool &t);
 };
 
@@ -44,10 +38,9 @@ class NonTool : public Item{
         std :: string variant;
     public:
         NonTool();
-        NonTool(std :: string name, int quantity, std :: string variant);
+        NonTool(int ID, std :: string name, std :: string variant);
         void set_variant(std :: string variant);
         std :: string get_variant() const;
-        void displayInfo() const;
         void operator=(const NonTool &nt);
 };
 #endif

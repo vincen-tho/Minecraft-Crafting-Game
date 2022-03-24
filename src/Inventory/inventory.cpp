@@ -56,8 +56,9 @@ void Inventory::add_item(Item *item, int quantity)
 
 void Inventory::add_item(NonTool item, int quantity)
 {
+    cout << "breakpoint 9" << endl;
     Item *t = new NonTool(item);
-
+    
     //dicari dulu item yang namanya sama
     int i = 0;
     while (quantity > 0 && i < 27)
@@ -137,7 +138,7 @@ void Inventory::add_item(Tool item, int quantity)
 
 void Inventory::add_item(int inventoryID, Tool item, int quantity)
 {
-
+    cout << "breakpoint 10" << endl;
     Item *nt = new Tool(item);
 
     if (inventory[inventoryID].first->get_name() != "noname")
