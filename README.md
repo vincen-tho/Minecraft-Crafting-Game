@@ -1,6 +1,6 @@
-# Minecraft-Template
+# Tugas Besar IF2210 Minecraft Crafting Game
 
-Template repository for Tubes 1 IF2210 2021/2022. Feel free to replace this README with your own content.
+Permainan berbasis CLI yang menerapkan konsep Pemrograman Berorientasi Objek. Pada permainan ini pemain dapat melakukan crafting sebuah TOOL dari beberapa item yang tersedia dengan menyusun item tersebut pada crafting table sesuai dengan recipes. 
 
 ## Makefile Commands
 
@@ -8,21 +8,21 @@ Kasih `-s` kalau gak mau Makefile-nya nge-echo command.
 
 
 
-### Nge-run
+### How To Run
 
 Nge-run `src/main.cpp`
 
 ```
-make run
+make -s run
 ```
 
-Nge-run `src/$(FOLDER)/main.cpp`
+Run `src/$(FOLDER)/main.cpp`
 
 ```
 make drive_test TDIR=$(FOLDER)
 ```
 
-Nge-run test
+Run test
 
 ```
 make test
@@ -30,7 +30,7 @@ make test
 
 Hasil akan ada di folder `tests/`
 
-Nge-run check
+Run check
 
 ```
 make check
@@ -60,3 +60,13 @@ You can add more tests by adding more files to the tests folder. Tests consists 
 As the test is done by comparing the output files, you can freely use standard output in your program.
 
 Automated testing will not work if you are using GUI (obviously).
+
+## Authors
+
+| NIM      | NAMA                          |
+|----------|-------------------------------|
+| 13520006 | Vionie Novencia Thanggestyo   | 
+| 13520015 | Jaya Mangalo Soegeng Rahardjo | 
+| 13520093 | Vincent Ho                    |
+| 13520135 | Muhammad Alif Putra Yasa      |
+| 13520165 | Ghazian Tsabit Alkamil        |
