@@ -59,12 +59,6 @@ int main()
           throw(E);
         }
 
-        //SOME EXCEPTIONS, change parameters as you desire
-
-        //Items dalam crafting tidak membuat recipe
-        //BaseException *E = new NoRecipe();
-        //throw(E);
-
       }
       else if (command == "DISCARD")
       {
@@ -148,15 +142,9 @@ int main()
           BaseException *E = new InvalidNumberException(itemQty);
           throw(E);
         }
-        // else if (/*TODO: Verify if ITEM_NAME IS VALID*/ true)
-        // {
-        //  BaseException *E = new ItemNameException(itemName);
-        //  throw(&E)
-        // }
         else
         {
           Item *newItem = Craft.searchItem(itemName);
-          cout << newItem->get_ID() << endl;
           Inv.add_item(newItem, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
         }
       }
@@ -191,8 +179,6 @@ int main()
               throw (E);
             }
 
-            /* Item* temp = Craft.return_item(idSlotSrc); */
-            /* Inv.add_item(idSlotDest, temp, slotQty); */
             if(Craft.at(idSlotSrc).first->get_name() == "noname"){
               BaseException *E = new NoItemCraftingException(idSlotSrc);
               throw(E);
@@ -270,21 +256,7 @@ int main()
             }
           }
         }
-        //SOME EXCEPTIONS, change parameters as you desire
-
-        //NO ITEM EXCEPTION (use this kalo inventory/crafting slot yg mau dipindah empty)
-        //BaseException *E = new NoItemInventoryException(INVENTORY_SLOT_ID);
-        //throw(E);
-        //BaseException *E = new NoItemCraftingException(INVENTORY_SLOT_ID);
-        //throw(E);
-
-        //TRYING TO STACK DIFFERENT ITEMS EXCEPTION
-        //BaseException *E = new DifferentItemStackException(ItemName1,ItemName2);
-        //throw(E);
-
-        //TRYING TO STACK TOOL EXCEPTION
-        //BaseException *E = new ToolStackingException();
-        //throw(E);
+        
       }
       else if (command == "SHOW")
       {
@@ -332,9 +304,9 @@ int main()
         cout << "1. SHOW " << endl;
         cout << "2. GIVE <Item_Name> <Item_Quantity> " << endl;
         cout << "3. DISCARD <Inventory_Slot_ID> <Item_Quantity> " << endl;
-        cout << "4. MOVE " << endl;
-        cout << "5. MOVE " << endl;
-        cout << "6. MOVE " << endl;
+        cout << "4. MOVE <craft_slot_id> 1 <inventory_slot_id>" << endl;
+        cout << "5. MOVE <inventory_slot_id> 1 <inventory_slot_id>" << endl;
+        cout << "6. MOVE <inventory_slot_id> N <craft_slot_id_0> <craft_slot_id_N>" << endl;
         cout << "7. USE <Inventory_Slot_ID> " << endl;
         cout << "8. CRAFT" << endl;
         cout << "9. EXPORT <path_file>" << endl;
