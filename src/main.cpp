@@ -54,6 +54,7 @@ int main()
           /* Item *resultItem = Craft.craft(); */
           pair<Item*, int> resultItem = Craft.CRAFT();
           Inv.add_item(resultItem.first, resultItem.second);
+          cout << "Item berhasil dicraft" <<endl;
         } else {
           BaseException* E = new NoRecipe();
           throw(E);
@@ -91,6 +92,7 @@ int main()
               throw (E);
           } else {
             Inv.DISCARD(idSlotSrc,itemQty);
+            cout << "Item berhasil dibuang" <<endl;
           }
         }
         else{
@@ -146,6 +148,7 @@ int main()
         {
           Item *newItem = Craft.searchItem(itemName);
           Inv.add_item(newItem, itemQty); // TODO: CHANGE WHEN VIHO CHANGES THIS
+          cout << "Item berhasil ditambahkan" <<endl;
         }
       }
       else if (command == "MOVE")
@@ -188,15 +191,16 @@ int main()
             if(Inv[idSlotDest].first->get_name() == tmp.first->get_name() && Inv[idSlotDest].second + tmp.second <= 64) {
               
               Inv.add_item(idSlotDest, tmp.first, tmp.second);
+              cout << "Item berhasil dipindahkan" << endl;
             
             }else if(Inv[idSlotDest].first->get_name() == "noname"){
 
               Inv.add_item(idSlotDest, tmp.first, tmp.second);
-
+              cout << "Item berhasil dipindahkan" << endl;
             } else {
 
               Craft.add_item(tmp.first, tmp.second, idSlotSrc);
-
+              cout << "Item berhasil dipindahkan" << endl;
             }
             
           }
@@ -249,14 +253,15 @@ int main()
               Item* temp = Inv[idSlotSrc].first;
               Craft.add_item(temp,1, idSlotDest);
               Inv.remove_item(temp,1);
+              cout << "Item berhasil dipindahkan" << endl;
             }else if(typeSlotDst == 'I'){
 
               Inv.MOVE(idSlotSrc, idSlotDest);
-
+              cout << "Item berhasil dipindahkan" << endl;
             }
           }
         }
-        
+    
       }
       else if (command == "SHOW")
       {
@@ -285,11 +290,11 @@ int main()
             if(Inv[invID].first->get_durability()-1 > 0){
 
               Inv[invID].first->set_durability(Inv[invID].first->get_durability()-1);
-
+              cout << "Item berhasil digunakan, Durability: "<< Inv[invID].first->get_durability() << endl;
             }else{
 
               Inv.remove_item(Inv[invID].first, 1);
-
+              cout << "Item berhasil digunakan, Durability habis, item hilang" <<endl;
             }
             
             
@@ -313,7 +318,7 @@ int main()
 
       }
       else if(command == "EXIT"){
-
+        cout << "Byebye" << endl;
       }
       else
       {

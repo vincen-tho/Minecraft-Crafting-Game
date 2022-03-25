@@ -126,7 +126,10 @@ void Inventory::add_item(Tool item, int quantity)
     if (inventory[i].first->get_name() == "noname")
     {
         inventory[i].first = nt;
-        inventory[i].second = quantity;
+        inventory[i].second = 1;
+        if(quantity > 1){
+            add_item(item,quantity-1);
+        }
     }
     else
     {
